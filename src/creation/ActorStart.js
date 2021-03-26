@@ -8,12 +8,11 @@ const ActorStart = (props) => {
 
     const handleValChange = (e) => setInpVal(e.target.value)
 
-    const postActor = (e) => {
+    const postActor = async (e) => {
 
         e.preventDefault()
 
-        // let res = await 
-        axios({
+        let res = await axios({
             method: "POST",
             url: 'http://localhost:8000/actor/create',
             headers: {
@@ -21,12 +20,13 @@ const ActorStart = (props) => {
                 'Access-Control-Allow-Origin' : 'https://localhost:8000',
             },
             data: {name: inpVal}
-        }).catch( err => console.log(err))
+        })
 
-        // res.then( () => {
-        //     setInpVal('')
-        // })
-        setInpVal('')
+        if (res.status === 200) {
+            setInpVal('')
+        } else {
+            console.log(`Post failed with error ${res.status}.`)
+        }
 
     }
 
