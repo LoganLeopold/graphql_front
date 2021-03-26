@@ -23,6 +23,7 @@ const ActorStart = (props) => {
         })
 
         if (res.status === 200) {
+            console.log(res)
             setInpVal('')
         } else {
             console.log(`Post failed with error ${res.status}.`)
