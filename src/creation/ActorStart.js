@@ -1,50 +1,43 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
-class ActorStart extends Component {
-    constructor () {
-        super()
-        this.state = {
-            //
-        }
+const ActorStart = (props) => {
 
-        // this.componentDidMount = this.componentDidMount.bind(this)
-        this.postActor = this.postActor.bind(this)
-    }
+    const [inpVal, setInpVal] = useState('')
 
-    async postActor(e) {
+    const handleValChange = (e) => setInpVal(e.target.value)
+
+    const postActor = (e) => {
 
         e.preventDefault()
 
-        let actorValue = document.querySelector('#actor_name').value
-
-        let res = await axios({
+        // let res = await 
+        axios({
             method: "POST",
             url: 'http://localhost:8000/actor/create',
             headers: {
                 "Content-Type": "application/json",
                 'Access-Control-Allow-Origin' : 'https://localhost:8000',
             },
-            data: {name: actorValue}
-        })
-        
+            data: {name: inpVal}
+        }).catch( err => console.log(err))
 
+        // res.then( () => {
+        //     setInpVal('')
+        // })
+        setInpVal('')
 
     }
 
-    render() {
-        return (
-            <div>
-
-                <form action="http://localhost:8000/actor/create" method="post" onSubmit={this.postActor}>
-                    <input name="name" value={this.value} id="actor_name"/>
-                    <input type="submit" value="submit" /> 
-                </form>
-
-            </div>
-        );
-    }
+    return (
+        <div>
+            <form action="http://localhost:8000/actor/create" method="post" onSubmit={postActor}>
+                <input name="name" value={inpVal} id="actor_name" onChange={handleValChange}/>
+                <input type="submit" value="submit" /> 
+            </form>
+        </div>
+    );
 }
 
 export default ActorStart;
