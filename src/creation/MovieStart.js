@@ -26,11 +26,33 @@ class MovieStart extends Component {
 
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
 
         e.preventDefault()
 
-        
+        let res = await axios({
+            method: "POST",
+            url: 'http://localhost:8000/movie/create',
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin' : 'https://localhost:8000',
+            },
+            data: {
+                name: this.state.name,
+                director: this.state.director,
+                actors: this.state.actors,
+                platforms: this.state.platforms,
+                tom_pub: this.state.tom_pub,
+                tom_crit: this.state.tom_crit,
+                genres: this.state.genres,
+            }
+        })
+
+        if (res.status === 200) {
+            console.log(res)
+        } else {
+            console.log(`Post failed with error ${res.status}.`)
+        }
 
     }
 
