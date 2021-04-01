@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 
 class MovieStart extends Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            name: '',
+            director: '',
+            actors: '',
+            platforoms: '',
+            tom_pub: '',
+            tom_crit: '',
+            genres: '',
+        }
+    }
+
     render() {
         return (
             <div>
