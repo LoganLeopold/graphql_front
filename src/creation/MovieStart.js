@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from "axios"
 
 class MovieStart extends Component {
     constructor (props) {
@@ -12,6 +13,25 @@ class MovieStart extends Component {
             tom_crit: '',
             genres: '',
         }
+
+        this.handleChange = this.handleChange.bind(this)
+
+    }
+
+    handleChange(e) {
+
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+
+    }
+
+    handleSubmit(e) {
+
+        e.preventDefault()
+
+        
+
     }
 
     render() {
@@ -19,19 +39,19 @@ class MovieStart extends Component {
             <div>
                 <form action="http://localhost:8000/movie/create" method="post">
                     <label>Title</label>
-                    <input name="name" value={this.value} id="movie_name"/>
+                    <input name="name" defaultValue='' id="movie_name" onChange={this.handleChange}/>
                     <label>Director</label>
-                    <input name="director" value={this.value} id="director_name"/>
+                    <input name="director" defaultValue='' id="director_name" onChange={this.handleChange}/>
                     <label>Actors</label>
-                    <input name="actors" value={this.value} id="actor_names"/>
+                    <input name="actors" defaultValue='' id="actor_names" onChange={this.handleChange}/>
                     <label>Platforms</label>
-                    <input name="platforms" value={this.value} id="platform_names"/>
+                    <input name="platforms" defaultValue='' id="platform_names" onChange={this.handleChange}/>
                     <label>Rotten Tomatoes Audience Score</label>
-                    <input name="tom_pub" value={this.value} id="tom_pub"/>
+                    <input name="tom_pub" defaultValue='' id="tom_pub" onChange={this.handleChange}/>
                     <label>Rotten Tomatoes Critic Score</label>
-                    <input name="tom_crit" value={this.value} id="tom_priv"/>
+                    <input name="tom_crit" defaultValue='' id="tom_priv" onChange={this.handleChange}/>
                     <label>Genres</label>
-                    <input name="genres" value={this.value} id="genres"/>
+                    <input name="genres" defaultValue='' id="genres" onChange={this.handleChange}/>
                     <input type="submit" value="submit" /> 
                 </form>
             </div>
