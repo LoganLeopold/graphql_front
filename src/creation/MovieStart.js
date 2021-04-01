@@ -8,7 +8,7 @@ class MovieStart extends Component {
             name: '',
             director: '',
             actors: '',
-            platforoms: '',
+            platforms: '',
             tom_pub: '',
             tom_crit: '',
             genres: '',
