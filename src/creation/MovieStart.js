@@ -15,6 +15,7 @@ class MovieStart extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
 
     }
 
@@ -59,7 +60,7 @@ class MovieStart extends Component {
     render() {
         return (
             <div>
-                <form action="http://localhost:8000/movie/create" method="post">
+                <form action="http://localhost:8000/movie/create" method="post" onSubmit={this.handleSubmit}>
                     <label>Title</label>
                     <input name="name" defaultValue='' id="movie_name" onChange={this.handleChange}/>
                     <label>Director</label>
