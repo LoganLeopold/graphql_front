@@ -31,7 +31,7 @@ class App extends Component {
           <br></br> 
           <h2> <Link to={'/platform/'}>Platforms</Link></h2> 
           <br></br> 
-          <h2> <Link to={'/apollo/'}>Platforms</Link></h2> 
+          <h2> <Link to={'/apollo/'}>Apollo</Link></h2> 
           <br></br>
         </nav>   
           

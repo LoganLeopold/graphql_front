@@ -7,10 +7,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const client = new ApolloClient({ uri: "https://localhost:8000/graphql", cache: new InMemoryCache() });
+const client = new ApolloClient({ uri: "http://localhost:8000/graphql/", cache: new InMemoryCache() });
+
+// client
+//   .query({
+//     query: gql`
+//       query actorMany {
+//         actorMany {
+//         Name,
+//         _id
+//         }
+//       }
+//     `
+//   })
+//   .then(result => console.log(result));
 
 ReactDOM.render(
-  <ApolloProvider>
+  <ApolloProvider client={client}>
     <Router>
       <React.StrictMode>
         <App />
