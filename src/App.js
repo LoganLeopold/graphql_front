@@ -5,6 +5,7 @@ import ActorStart from "./creation/ActorStart"
 import DirectorStart from "./creation/DirectorStart"
 import MovieStart from "./creation/MovieStart"
 import PlatformStart from "./creation/PlatformStart"
+import ApolloTest from "../src/apollo_client_test/ApolloTest"
 
 class App extends Component {
 
@@ -30,6 +31,8 @@ class App extends Component {
           <br></br> 
           <h2> <Link to={'/platform/'}>Platforms</Link></h2> 
           <br></br> 
+          <h2> <Link to={'/apollo/'}>Platforms</Link></h2> 
+          <br></br>
         </nav>   
           
         <main>
@@ -37,6 +40,7 @@ class App extends Component {
             <Route path="/director" exact render={routerProps => <DirectorStart {...routerProps} {...this.state}/>} /> 
             <Route path="/movie" exact render={routerProps => <MovieStart {...routerProps} {...this.state}/>} /> 
             <Route path="/platform" exact render={routerProps => <PlatformStart {...routerProps} {...this.state}/>} /> 
+            <Route path="/apollo" exact render={routerProps => <ApolloTest {...routerProps} {...this.state}/>} /> 
         </main> 
   
       </div>
