@@ -1,40 +1,31 @@
-import { useQuery, useMutation, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 
 const ApolloTest = (props) => {
 
-    // const allActors = gql`
-    //     query actorMany {
-    //         actorMany {
-    //         Name,
-    //         _id
-    //         }
-    //     }
-    // `
-    const test = "Matt Damon"
+    // const test = "Matt Damon"
 
     const allActors = gql`
         mutation {
-            actorUpdateById(_id:"606b4a0f86b9b68d59f576e5", record: {Name: "Matth Damon"}) {
-            record {
-                Name,
-                _id
+            actorUpdateById(_id:"606b4a0f86b9b68d59f576e5", record: {Name: "Matt Damon"}) {
+                record {
+                    Name,
+                    _id
+                }
             }
-          }
         }
     `
 
-    const { loading, error, data } = useMutation(allActors);
+    const [addTodo, { data }] = useMutation(allActors, {update: result});
 
-    if (loading) {return <p>Loading...</p>;}
-    else if (error) {
-        console.log(error)
-        return <p>Error :(</p>;
+    addTodo()
+
+    function result () {
+            console.log(data)
+            return <h1> NOTHING </h1>
+        // }
     }
 
-    console.log(data)
-    return data.allActors.map( actor => {
-        return <p key={actor.Name}>{actor.Name}</p>
-    })
+    return <h1> NOTHING NATURAL </h1>
 
 }
 
