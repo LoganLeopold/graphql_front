@@ -5,7 +5,7 @@ const ApolloTest = (props) => {
 
     const [actorName, setActorName] = useState('No Update')
 
-    const test = "Matt Damon"
+    const test = "Matthew Damon"
 
     const allActors = gql`
         mutation {
@@ -18,23 +18,17 @@ const ApolloTest = (props) => {
         }
     `
 
-    const [addTodo, { loading }] = useMutation(allActors, {
+    const [addTodo, { loading, error }] = useMutation(allActors, {
         onCompleted(data) {
             if (data) {
                 setActorName(data.actorUpdateById.record.Name)
             } else if (loading) {
                 console.log(actorName)
+            } else if (error) {
+                setActorName(error)
             }
         }
     });
-
-    // function result () {
-
-    // }
-
-    // function errorResult () {
-    //     setActorName('Update Error')
-    // }
  
     return (
         <div>
