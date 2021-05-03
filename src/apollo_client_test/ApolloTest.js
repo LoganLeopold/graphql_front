@@ -1,12 +1,15 @@
+import React, { useState } from 'react'
 import { useMutation, gql } from '@apollo/client';
 
 const ApolloTest = (props) => {
 
-    // const test = "Matt Damon"
+    const [actorName, setActorName] = useState('No Update')
+
+    const test = "Matthew Damon"
 
     const allActors = gql`
         mutation {
-            actorUpdateById(_id:"606b4a0f86b9b68d59f576e5", record: {Name: "Matt Damon"}) {
+            actorUpdateById(_id:"606b4a0f86b9b68d59f576e5", record: {Name: "${test}"}) {
                 record {
                     Name,
                     _id
@@ -20,12 +23,15 @@ const ApolloTest = (props) => {
     addTodo()
 
     function result () {
-            console.log(data)
-            return <h1> NOTHING </h1>
-        // }
+     
+        console.log(data)
+        if (data) {
+            setActorName(data.actorUpdateById.record.Name)
+        } 
+            
     }
-
-    return <h1> NOTHING NATURAL </h1>
+ 
+    return <h1> {actorName} </h1>
 
 }
 
