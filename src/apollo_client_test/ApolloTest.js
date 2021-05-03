@@ -18,20 +18,27 @@ const ApolloTest = (props) => {
         }
     `
 
-    const [addTodo, { data }] = useMutation(allActors, {update: result});
-
-    addTodo()
+    const [addTodo, { data }] = useMutation(allActors, {onCompleted: result, onError: errorResult});
 
     function result () {
-     
         console.log(data)
         if (data) {
             setActorName(data.actorUpdateById.record.Name)
         } 
-            
+    }
+
+    function errorResult () {
+        setActorName('Update Error')
     }
  
-    return <h1> {actorName} </h1>
+    return (
+        <div>
+            <label>New Name</label>
+            <input id="matt-name" />
+            <input type="submit" onClick={addTodo}/>
+            <h1> {actorName} </h1>
+        </div>
+    ) 
 
 }
 
