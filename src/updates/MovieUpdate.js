@@ -15,12 +15,13 @@ class MovieUpdate extends Component {
         }
 
         this.componentDidMount = this.componentDidMount.bind(this)
+        this.getLatestDoc = this.getLatestDoc.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
 
     }
 
-    async componentDidMount() {
+    async getLatestDoc () {
 
         try {
 
@@ -96,6 +97,84 @@ class MovieUpdate extends Component {
 
     }
 
+    async componentDidMount() {
+
+        this.getLatestDoc()
+
+        // try {
+
+        //     let movieRes = await axios({
+        //         method: "GET",
+        //         url: `http://localhost:8000/movie/${this.props.match.params.id}`,
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             'Access-Control-Allow-Origin' : 'https://localhost:8000',
+        //         }
+        //     })
+
+        //     const { Genres, Name, TomatoCritic, TomatoPublic } = movieRes.data
+
+        //     let actorsRes = await axios({
+        //         method: "GET",
+        //         url: `http://localhost:8000/actor/many/${movieRes.data._id}`,
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             'Access-Control-Allow-Origin' : 'https://localhost:8000',
+        //         },
+        //     })
+        //     let directorRes = await axios({
+        //         method: "GET",
+        //         url: `http://localhost:8000/director/many/${movieRes.data._id}`,
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             'Access-Control-Allow-Origin' : 'https://localhost:8000',
+        //         },
+        //     })
+        //     let platformRes = await axios({
+        //         method: "GET",
+        //         url: `http://localhost:8000/platform/many/${movieRes.data._id}`,
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             'Access-Control-Allow-Origin' : 'https://localhost:8000',
+        //         },
+        //     })
+
+        //     this.setState({
+        //         name: Name,
+        //         director: directorRes.data.reduce( (acc, cur) => {
+        //             acc.push(cur.Name)
+        //             return acc
+        //         }, []).join(', '),
+        //         actors: actorsRes.data.reduce( (acc, cur) => {
+        //             acc.push(cur.Name)
+        //             return acc
+        //         }, []).join(', '),
+        //         platforms: platformRes.data.reduce( (acc, cur) => {
+        //             acc.push(cur.Name)
+        //             return acc
+        //         }, []).join(', '),
+        //         tom_pub: TomatoPublic,
+        //         tom_crit: TomatoCritic,
+        //         genres: Genres.reduce( (acc, cur) => {
+        //             acc.push(cur)
+        //             return acc
+        //         }, []).join(', '),
+        //     }, () => {
+
+        //         const stateSnapshot = Object.entries(this.state)
+
+        //         stateSnapshot.forEach( snap => document.querySelector(`[name='${snap[0]}']`).value = snap[1] )
+
+        //     })
+
+        // } catch (err) {
+
+        //     console.log(err)
+
+        // }
+
+    }
+
     handleChange(e) {
 
         this.setState({
@@ -127,7 +206,7 @@ class MovieUpdate extends Component {
         })
 
         if (res.status === 200) {
-            console.log(res)
+            this.getLatestDoc()
         } else {
             console.log(`Post failed with error ${res.status}.`)
         }
