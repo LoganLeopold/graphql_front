@@ -20,9 +20,22 @@ class MovieUpdate extends Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
-        console.log(this.props)
+        let movieRes = await axios({
+            method: "GET",
+            url: `http://localhost:8000/movie/${this.props.match.params.id}`,
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin' : 'https://localhost:8000',
+            }
+        })
+
+        // Need separate requests to fetch conditional on movie id
+        //Actors
+        //Directors
+        //Platforms
+        console.log(res)
 
     }
 
@@ -38,29 +51,29 @@ class MovieUpdate extends Component {
 
         e.preventDefault()
 
-        // let res = await axios({
-        //     method: "PUT",
-        //     url: `http://localhost:8000/movie/update/${}`,
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         'Access-Control-Allow-Origin' : 'https://localhost:8000',
-        //     },
-        //     data: {
-        //         name: this.state.name,
-        //         director: this.state.director,
-        //         actors: this.state.actors,
-        //         platforms: this.state.platforms,
-        //         tom_pub: this.state.tom_pub,
-        //         tom_crit: this.state.tom_crit,
-        //         genres: this.state.genres,
-        //     }
-        // })
+        let res = await axios({
+            method: "PUT",
+            url: `http://localhost:8000/movie/update/${this.props.match.params.id}`,
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin' : 'https://localhost:8000',
+            },
+            data: {
+                name: this.state.name,
+                director: this.state.director,
+                actors: this.state.actors,
+                platforms: this.state.platforms,
+                tom_pub: this.state.tom_pub,
+                tom_crit: this.state.tom_crit,
+                genres: this.state.genres,
+            }
+        })
 
-        // if (res.status === 200) {
-        //     console.log(res)
-        // } else {
-        //     console.log(`Post failed with error ${res.status}.`)
-        // }
+        if (res.status === 200) {
+            console.log(res)
+        } else {
+            console.log(`Post failed with error ${res.status}.`)
+        }
 
     }
 

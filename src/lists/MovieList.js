@@ -22,12 +22,12 @@ const MovieList = (props) => {
         <div>
             {
                 data.movieMany.map( movie => {
-                    let directors = movie.Director.map( dir => <h3>{dir}</h3>)
+                    // let directors = movie.Director.map( dir => <h3>{dir}</h3>)
                     return (
                         <div>
                             <h1>{movie.Name}</h1>
                             <label>Director(s)</label>
-                            <ul>{directors}</ul>
+                            {/* <ul>{directors}</ul> */}
                             <Link to={`/movie/update/${movie._id}`}>
                                 <button>Update Movie</button>
                             </Link>

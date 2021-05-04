@@ -38,10 +38,6 @@ class App extends Component {
         </nav>   
           
         <main>
-            {/* <Route path="/actor" exact render={routerProps => <ActorStart {...routerProps} {...this.state}/>} /> 
-            <Route path="/director" exact render={routerProps => <DirectorStart {...routerProps} {...this.state}/>} /> 
-            <Route path="/movie" exact render={routerProps => <MovieStart {...routerProps} {...this.state}/>} /> 
-            <Route path="/platform" exact render={routerProps => <PlatformStart {...routerProps} {...this.state}/>} />  */}
             <Route path="/director" exact render={routerProps => <DirectorList {...routerProps} {...this.state}/>} /> 
             <Route path="/platform" exact render={routerProps => <PlatformList {...routerProps} {...this.state}/>} /> 
             <Route path="/apollo" exact render={routerProps => <ApolloTest {...routerProps} {...this.state}/>} /> 
@@ -50,7 +46,7 @@ class App extends Component {
             <Route path="/actor/:id" exact render={routerProps => <ActorUpdate {...routerProps} {...this.state} />} />
             
             <Route path="/movie" exact render={routerProps => <MovieList {...routerProps} {...this.state}/>} /> 
-            <Route path="movie/update/:id" exact render={routerProps => <MovieUpdate {...routerProps} {...this.state} />} />
+            <Route path="/movie/update/:id"  render={routerProps => <MovieUpdate {...routerProps} {...this.state} />} />
         </main> 
   
       </div>
