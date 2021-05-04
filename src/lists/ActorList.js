@@ -3,27 +3,39 @@ import { useQuery, gql } from '@apollo/client';
 
 const ActorList = (props) => {
 
-    const [actorList, setActorList] = useState([])
-
     const allActors = gql`
-        mutation {
+        query {
             actorMany {
-                record {
+                _id
+                Name
+                Movies {
                     Name
-                    _id
-                    Movies
                 }
             }
         }
     `
 
- 
+    const { loading, error, data } = useQuery(allActors);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
     return (
-        <div>
-            <label>New Name</label>
-            <input id="matt-name" />
-            <input type="submit" onClick={addTodo}/>
-            <h1> {actorName} </h1>
+        <div class="allActors">
+            {
+                data.actorMany.map( actor => { 
+                    let name = actor.Name
+                    let movies = actor.Movies.map( movie => <li>{movie.Name}</li>)
+                    return (
+                        <div class="actor">
+                            <h1>{name}</h1>
+                            <ul>
+                                {movies}
+                            </ul>
+                        </div>
+                    )
+                })
+            }
         </div>
     ) 
 
