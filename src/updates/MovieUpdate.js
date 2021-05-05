@@ -7,11 +7,11 @@ class MovieUpdate extends Component {
         this.state = {
             name: '',
             director: '',
-            actors: '',
-            platforms: '',
+            actor: '',
+            platform: '',
             tom_pub: '',
             tom_crit: '',
-            genres: '',
+            genre: '',
         }
 
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -67,17 +67,17 @@ class MovieUpdate extends Component {
                     acc.push(cur.Name)
                     return acc
                 }, []).join(', '),
-                actors: actorsRes.data.reduce( (acc, cur) => {
+                actor: actorsRes.data.reduce( (acc, cur) => {
                     acc.push(cur.Name)
                     return acc
                 }, []).join(', '),
-                platforms: platformRes.data.reduce( (acc, cur) => {
+                platform: platformRes.data.reduce( (acc, cur) => {
                     acc.push(cur.Name)
                     return acc
                 }, []).join(', '),
                 tom_pub: TomatoPublic,
                 tom_crit: TomatoCritic,
-                genres: Genres.reduce( (acc, cur) => {
+                genre: Genres.reduce( (acc, cur) => {
                     acc.push(cur)
                     return acc
                 }, []).join(', '),
@@ -115,9 +115,27 @@ class MovieUpdate extends Component {
 
         e.preventDefault()
 
+        // let res = await axios({
+        //     method: "PUT",
+        //     url: `http://localhost:8000/movie/testAbs/${this.props.match.params.id}`,
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         'Access-Control-Allow-Origin' : 'https://localhost:8000',
+        //     },
+        //     data: {
+        //         name: this.state.name,
+        //         director: this.state.director,
+        //         actor: this.state.actors,
+        //         platform: this.state.platforms,
+        //         tom_pub: this.state.tom_pub,
+        //         tom_crit: this.state.tom_crit,
+        //         genre: this.state.genres,
+        //     }
+        // })
+
         let res = await axios({
             method: "PUT",
-            url: `http://localhost:8000/movie/test/${this.props.match.params.id}`,
+            url: `http://localhost:8000/movie/testAbs/${this.props.match.params.id}`,
             headers: {
                 "Content-Type": "application/json",
                 'Access-Control-Allow-Origin' : 'https://localhost:8000',
@@ -125,15 +143,16 @@ class MovieUpdate extends Component {
             data: {
                 name: this.state.name,
                 director: this.state.director,
-                actors: this.state.actors,
-                platforms: this.state.platforms,
+                actor: this.state.actors,
+                platform: this.state.platforms,
                 tom_pub: this.state.tom_pub,
                 tom_crit: this.state.tom_crit,
-                genres: this.state.genres,
+                genre: this.state.genres,
             }
         })
 
         if (res.status === 200) {
+            console.log(res)
             this.getLatestDoc()
         } else {
             console.log(`Post failed with error ${res.status}.`)
@@ -150,15 +169,15 @@ class MovieUpdate extends Component {
                     <label>Director</label>
                     <input name="director" defaultValue='' id="director_name" onChange={this.handleChange}/>
                     <label>Actors</label>
-                    <input name="actors" defaultValue='' id="actor_names" onChange={this.handleChange}/>
+                    <input name="actor" defaultValue='' id="actor_names" onChange={this.handleChange}/>
                     <label>Platforms</label>
-                    <input name="platforms" defaultValue='' id="platform_names" onChange={this.handleChange}/>
+                    <input name="platform" defaultValue='' id="platform_names" onChange={this.handleChange}/>
                     <label>Rotten Tomatoes Audience Score</label>
                     <input name="tom_pub" defaultValue='' id="tom_pub" onChange={this.handleChange}/>
                     <label>Rotten Tomatoes Critic Score</label>
                     <input name="tom_crit" defaultValue='' id="tom_priv" onChange={this.handleChange}/>
                     <label>Genres</label>
-                    <input name="genres" defaultValue='' id="genres" onChange={this.handleChange}/>
+                    <input name="genre" defaultValue='' id="genres" onChange={this.handleChange}/>
                     <input type="submit" value="submit" /> 
                 </form>
             </div>

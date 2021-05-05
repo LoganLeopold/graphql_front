@@ -7,11 +7,11 @@ class MovieStart extends Component {
         this.state = {
             name: '',
             director: '',
-            actors: '',
-            platforms: '',
+            actor: '',
+            platform: '',
             tom_pub: '',
             tom_crit: '',
-            genres: '',
+            genre: '',
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -41,11 +41,11 @@ class MovieStart extends Component {
             data: {
                 name: this.state.name,
                 director: this.state.director,
-                actors: this.state.actors,
-                platforms: this.state.platforms,
+                actor: this.state.actors,
+                platform: this.state.platforms,
                 tom_pub: this.state.tom_pub,
                 tom_crit: this.state.tom_crit,
-                genres: this.state.genres,
+                genre: this.state.genres,
             }
         })
 
@@ -66,15 +66,15 @@ class MovieStart extends Component {
                     <label>Director</label>
                     <input name="director" defaultValue='' id="director_name" onChange={this.handleChange}/>
                     <label>Actors</label>
-                    <input name="actors" defaultValue='' id="actor_names" onChange={this.handleChange}/>
+                    <input name="actor" defaultValue='' id="actor_names" onChange={this.handleChange}/>
                     <label>Platforms</label>
-                    <input name="platforms" defaultValue='' id="platform_names" onChange={this.handleChange}/>
+                    <input name="platform" defaultValue='' id="platform_names" onChange={this.handleChange}/>
                     <label>Rotten Tomatoes Audience Score</label>
                     <input name="tom_pub" defaultValue='' id="tom_pub" onChange={this.handleChange}/>
                     <label>Rotten Tomatoes Critic Score</label>
                     <input name="tom_crit" defaultValue='' id="tom_priv" onChange={this.handleChange}/>
                     <label>Genres</label>
-                    <input name="genres" defaultValue='' id="genres" onChange={this.handleChange}/>
+                    <input name="genre" defaultValue='' id="genres" onChange={this.handleChange}/>
                     <input type="submit" value="submit" /> 
                 </form>
             </div>
