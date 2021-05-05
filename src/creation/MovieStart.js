@@ -41,11 +41,11 @@ class MovieStart extends Component {
             data: {
                 name: this.state.name,
                 director: this.state.director,
-                actor: this.state.actors,
-                platform: this.state.platforms,
+                actor: this.state.actor,
+                platform: this.state.platform,
                 tom_pub: this.state.tom_pub,
                 tom_crit: this.state.tom_crit,
-                genre: this.state.genres,
+                genre: this.state.genre,
             }
         })
 
