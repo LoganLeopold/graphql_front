@@ -117,7 +117,7 @@ class MovieUpdate extends Component {
 
         let res = await axios({
             method: "PUT",
-            url: `http://localhost:8000/movie/update/${this.props.match.params.id}`,
+            url: `http://localhost:8000/movie/test/${this.props.match.params.id}`,
             headers: {
                 "Content-Type": "application/json",
                 'Access-Control-Allow-Origin' : 'https://localhost:8000',
