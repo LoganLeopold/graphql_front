@@ -43,7 +43,10 @@ nav > * {
 }
 
 /* Movie Update */
-.movie-update 
+.movie-update {
+  display: flex;
+  justify-content: center;
+}
 
 .movie-update form {
   width: 40%
