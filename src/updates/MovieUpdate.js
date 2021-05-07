@@ -115,27 +115,9 @@ class MovieUpdate extends Component {
 
         e.preventDefault()
 
-        // let res = await axios({
-        //     method: "PUT",
-        //     url: `http://localhost:8000/movie/update/${this.props.match.params.id}`,
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         'Access-Control-Allow-Origin' : 'https://localhost:8000',
-        //     },
-        //     data: {
-        //         name: this.state.name,
-        //         director: this.state.director,
-        //         actor: this.state.actor,
-        //         platform: this.state.platform,
-        //         tom_pub: this.state.tom_pub,
-        //         tom_crit: this.state.tom_crit,
-        //         genre: this.state.genre,
-        //     }
-        // })
-
         let res = await axios({
             method: "PUT",
-            url: `http://localhost:8000/movie/testAbs/${this.props.match.params.id}`,
+            url: `http://localhost:8000/movie/update/${this.props.match.params.id}`,
             headers: {
                 "Content-Type": "application/json",
                 'Access-Control-Allow-Origin' : 'https://localhost:8000',
@@ -151,6 +133,24 @@ class MovieUpdate extends Component {
             }
         })
 
+            // let res = await axios({
+            //     method: "PUT",
+            //     url: `http://localhost:8000/movie/testAbs/${this.props.match.params.id}`,
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         'Access-Control-Allow-Origin' : 'https://localhost:8000',
+            //     },
+            //     data: {
+            //         name: this.state.name,
+            //         director: this.state.director,
+            //         actor: this.state.actor,
+            //         platform: this.state.platform,
+            //         tom_pub: this.state.tom_pub,
+            //         tom_crit: this.state.tom_crit,
+            //         genre: this.state.genre,
+            //     }
+            // })
+
         if (res.status === 200) {
             console.log(res)
             this.getLatestDoc()
@@ -162,22 +162,36 @@ class MovieUpdate extends Component {
 
     render() {
         return (
-            <div>
+            <div class="movie-update">
                 <form onSubmit={this.handleSubmit}>
-                    <label>Title</label>
-                    <input name="name" defaultValue='' id="movie_name" onChange={this.handleChange}/>
-                    <label>Director</label>
-                    <input name="director" defaultValue='' id="director_name" onChange={this.handleChange}/>
-                    <label>Actors</label>
-                    <input name="actor" defaultValue='' id="actor_names" onChange={this.handleChange}/>
-                    <label>Platforms</label>
-                    <input name="platform" defaultValue='' id="platform_names" onChange={this.handleChange}/>
-                    <label>Rotten Tomatoes Audience Score</label>
-                    <input name="tom_pub" defaultValue='' id="tom_pub" onChange={this.handleChange}/>
-                    <label>Rotten Tomatoes Critic Score</label>
-                    <input name="tom_crit" defaultValue='' id="tom_priv" onChange={this.handleChange}/>
-                    <label>Genres</label>
-                    <input name="genre" defaultValue='' id="genres" onChange={this.handleChange}/>
+                    <div>
+                        <label>Title</label>
+                        <input name="name" defaultValue='' id="movie_name" onChange={this.handleChange}/>
+                        </div>
+                    <div>
+                        <label>Director</label>
+                        <input name="director" defaultValue='' id="director_name" onChange={this.handleChange}/>
+                        </div>
+                    <div>
+                        <label>Actors</label>
+                        <input name="actor" defaultValue='' id="actor_names" onChange={this.handleChange}/>
+                        </div>
+                    <div>
+                        <label>Platforms</label>
+                        <input name="platform" defaultValue='' id="platform_names" onChange={this.handleChange}/>
+                        </div>
+                    <div>
+                        <label>Rotten Tomatoes Audience Score</label>
+                        <input name="tom_pub" defaultValue='' id="tom_pub" onChange={this.handleChange}/>
+                        </div>
+                    <div>
+                        <label>Rotten Tomatoes Critic Score</label>
+                        <input name="tom_crit" defaultValue='' id="tom_priv" onChange={this.handleChange}/>
+                        </div>
+                    <div>
+                        <label>Genres</label>
+                        <input name="genre" defaultValue='' id="genres" onChange={this.handleChange}/>
+                    </div>
                     <input type="submit" value="submit" /> 
                 </form>
             </div>

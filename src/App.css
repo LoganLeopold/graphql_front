@@ -41,3 +41,16 @@ nav > * {
   margin-left: 20px; 
   margin-right: 20px; 
 }
+
+/* Movie Update */
+.movie-update 
+
+.movie-update form {
+  width: 40%
+}
+
+.movie-update form > * {
+  display: flex;
+  justify-content: space-between;
+}
+
