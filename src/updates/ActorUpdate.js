@@ -26,11 +26,9 @@ const ActorUpdate = (props) => {
     // console.log(data)
     let name = <h1>{data.actorById.Name}</h1>
 
-    // let movies = data.actorById.Movies.forEach( mov => {
-    //     return <h1 data-id={`${mov._id}`}>{mov.Name}</h1>
-    // })
-
-    let movies = <h1 data-id={`${data.actorById.Movies[0]._id}`}>{data.actorById.Movies[0].Name}</h1>
+    let movies = data.actorById.Movies.map( mov => {
+        return <h1 data-id={`${mov._id}`}>{mov.Name}</h1>
+    })
 
     return (
         <div>
