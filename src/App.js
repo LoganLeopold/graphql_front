@@ -43,7 +43,7 @@ class App extends Component {
             <Route path="/apollo" exact render={routerProps => <ApolloTest {...routerProps} {...this.state}/>} /> 
             
             <Route path="/actor" exact render={routerProps => <ActorList {...routerProps} {...this.state}/>} /> 
-            <Route path="/actor/:id" exact render={routerProps => <ActorUpdate {...routerProps} {...this.state} />} />
+            <Route path="/actor/update/:id" exact render={routerProps => <ActorUpdate {...routerProps} {...this.state} />} />
             
             <Route path="/movie" exact render={routerProps => <MovieList {...routerProps} {...this.state}/>} /> 
             <Route path="/movie/update/:id"  render={routerProps => <MovieUpdate {...routerProps} {...this.state} />} />
