@@ -42,6 +42,33 @@ nav > * {
   margin-right: 20px; 
 }
 
+/* Record */
+.record {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.record > h3 {
+  margin: 0;
+}
+
+.record > p {
+    margin: 0;
+    right: 0;
+    top: 0;
+    background: black;
+    color: white;
+    visibility: hidden;
+    margin-left: 5px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.record:hover > p {
+  visibility: visible;
+}
+
 /* Movie Update */
 .movie-update {
   display: flex;

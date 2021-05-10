@@ -162,7 +162,9 @@ class MovieUpdate extends Component {
 
     render() {
 
-        let actors = this.state.actor.split(',').map( actor => <h1>{actor.trim()}</h1> )
+        // let actors = this.state.actor.split(',').map( actor => <h1>{actor.trim()}</h1> )
+
+
 
         return (
             <div class="movie-update">
@@ -178,7 +180,7 @@ class MovieUpdate extends Component {
                     <div>
                         <label>Actors</label>
                         <input name="actor" defaultValue='' id="actor_names" onChange={this.handleChange}/>
-                        {actors}
+                        {/* {actors} */}
                         </div>
                     <div>
                         <label>Platforms</label>
