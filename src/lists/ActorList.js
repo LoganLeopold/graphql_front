@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useQuery, gql } from '@apollo/client';
 
 const ActorList = (props) => {
@@ -21,17 +22,20 @@ const ActorList = (props) => {
     if (error) return <p>Error :(</p>;
 
     return (
-        <div class="allActors">
+        <div className="allActors">
             {
                 data.actorMany.map( actor => { 
                     let name = actor.Name
-                    let movies = actor.Movies.map( movie => <li>{movie.Name}</li>)
+                    let movies = actor.Movies.map( movie => <li key={movie.Name}>{movie.Name}</li>)
                     return (
-                        <div class="actor">
+                        <div key={actor._id} className="actor">
                             <h1>{name}</h1>
                             <ul>
                                 {movies}
                             </ul>
+                            <Link to={`/actor/update/${actor._id}`}>
+                                <button>Update Actor</button>
+                            </Link>
                         </div>
                     )
                 })

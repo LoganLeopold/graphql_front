@@ -3,12 +3,20 @@ import { useMutation, useQuery, gql } from '@apollo/client';
 
 const Record = (props) => {
 
-    const deleteRecord = (e) => console.log(e.target.dataset._id)
+    const actorU = gql`
+    mutation {
+        actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}")
+    }
+`
+
+    const deleteRecord = (e) => {
+        console.log(props)
+    }
 
     return (
-        <div class="record">
+        <div className="record">
             <h3>{props.name}</h3>
-            <p data-_id={props._id} onClick={deleteRecord}>-</p>
+            <p onClick={deleteRecord}>-</p>
         </div>
     )
 

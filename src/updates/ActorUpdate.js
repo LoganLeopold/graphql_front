@@ -24,18 +24,16 @@ const ActorUpdate = (props) => {
         return <p>Error :(</p>;
     }
 
-    // console.log(data)
     let name = <h1>{data.actorById.Name}</h1>
 
     let movies = data.actorById.Movies.map( mov => {
-        // return <h1 data-id={`${mov._id}`}>{mov.Name}</h1>
-        return <Record name={mov.Name} _id={mov._id}/>
+        return <Record name={mov.Name} recordId={mov._id} modelId={props.match.params.id} />
     })
 
     return (
         <div>
         {name}  
-        { movies }
+        {movies}
         </div>
     )
 

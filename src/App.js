@@ -8,6 +8,7 @@ import ApolloTest from "../src/apollo_client_test/ApolloTest"
 import ActorUpdate from "./updates/ActorUpdate"
 import MovieList from "./lists/MovieList"
 import MovieUpdate from "./updates/MovieUpdate"
+import MovieStart from './creation/MovieStart';
 
 class App extends Component {
 
@@ -25,16 +26,18 @@ class App extends Component {
         <nav className='top' style={{display: 'flex'}}>
           <h1> <Link className='homepage' to='/'>Home</Link></h1>
           <br></br> 
-          <h2> <Link to={'/actor/'}>Artists</Link></h2> 
+          <h2> <Link to={'/actor/'}>Actors</Link></h2> 
           <br></br> 
           <h2> <Link to={'/director/'}>Directors</Link></h2> 
           <br></br> 
           <h2> <Link to={'/movie/'}>Movies</Link></h2> 
+          <h2> <Link to={'/movie/create'}>Movie Create</Link></h2> 
+          <br></br>
           <br></br> 
           <h2> <Link to={'/platform/'}>Platforms</Link></h2> 
           <br></br> 
-          <h2> <Link to={'/apollo/'}>Apollo</Link></h2> 
-          <br></br>
+          {/* <h2> <Link to={'/apollo/'}>Apollo</Link></h2>  */}
+          {/* <br></br> */}
         </nav>   
           
         <main>
@@ -46,6 +49,7 @@ class App extends Component {
             <Route path="/actor/update/:id" exact render={routerProps => <ActorUpdate {...routerProps} {...this.state} />} />
             
             <Route path="/movie" exact render={routerProps => <MovieList {...routerProps} {...this.state}/>} /> 
+            <Route path="/movie/create" exact render={routerProps => <MovieStart {...routerProps} {...this.state}/>} /> 
             <Route path="/movie/update/:id"  render={routerProps => <MovieUpdate {...routerProps} {...this.state} />} />
         </main> 
   
