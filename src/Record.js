@@ -13,10 +13,29 @@ const Record = (props) => {
     `
 
     // Remove record from current doc's corresponding array
+    const recordRemove = gql`
+        mutation {
+            actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}") {
+                _id
+            }
+        }
+    `
+
+    const valueChange = gql`
+        mutation {
+            actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}") {
+                _id
+            }
+        }
+    `
 
     /*
 
-    If this is to truly adapt, we need two mutations. We'll use ActorUpdate to think.
+    We'll use ActorUpdate to think.
+
+    Resolver needs to know what id to update, the update field, and update data
+
+    We can use recordId to check for need to resolve relationships. 
 
     Data types from state: {
         [objectID],
@@ -26,16 +45,14 @@ const Record = (props) => {
         String
     }
 
-    Resolver needs to know
+    if  recordID:
+        if [objectID]
+        if else  objectID
+    else 
+        if []
+        else if Int
+        else if String
 
-    We can use recordId to check for need to resolve relationships. 
-
-    1 Delete
-        A - if record is related Model
-            a) Use movie ID to remove actor from movie
-            b) Delete movie record from actor 
-        B - if record is simple value
-            a) Use movie ID to remove
     */
 
     const [deleteDoc, { loading, error }] = useMutation(docRemove, {
