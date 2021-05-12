@@ -3,8 +3,6 @@ import { useMutation, gql } from '@apollo/client';
 
 const Record = (props) => {
 
-
-    console.log(props)
     // Remove current doc from record's array
     const docRemove = gql`
         mutation {
@@ -13,7 +11,6 @@ const Record = (props) => {
             }
         }
     `
-
     // Remove record from current doc's corresponding array
     const recordRemove = gql`
         mutation {
@@ -22,7 +19,6 @@ const Record = (props) => {
             }
         }
     `
-
     const valueChange = gql`
         mutation {
             actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}") {
@@ -32,21 +28,6 @@ const Record = (props) => {
     `
 
     /*
-
-    We'll use ActorUpdate to think.
-
-    Resolver needs to know what id to update, the update field, and update data
-
-    We can use recordId to check for need to resolve relationships. 
-
-    Data types from state: {
-        [objectID],
-        objectID,
-        [],
-        Int,
-        String
-    }
-
     if  recordID:
         if [objectID]
         if else  objectID
@@ -54,7 +35,6 @@ const Record = (props) => {
         if []
         else if Int
         else if String
-
     */
 
     const [deleteDoc, { loading, error }] = useMutation(docRemove, {
@@ -71,11 +51,13 @@ const Record = (props) => {
 
     const deleteRecordEvent = async (e) => {
         deleteDoc()
+        props.refreshParent(props.propObj.top)
     }
 
+    console.log(props.propsObj)
     return (
         <div className="record">
-            <h3>{props.display}</h3>
+            <h3>{props.propObj.display}</h3>
             <p onClick={deleteRecordEvent}><span>edit</span><span>-</span></p>
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { gql } from '@apollo/client';
+// import { gql } from '@apollo/client';
 import axios from 'axios'
 import Record from "../Record"
 
@@ -23,7 +23,7 @@ class MovieUpdate extends Component {
 
     }
 
-    async getLatestDoc () {
+    async getLatestDoc (id) {
 
         try {
 
@@ -33,7 +33,7 @@ class MovieUpdate extends Component {
                 data: {
                   query: `
                     query {
-                        movieById(_id:"${this.props.match.params.id}") {
+                        movieById(_id:"${id}") {
                                 _id
                             Name
                             Actors {
@@ -80,7 +80,7 @@ class MovieUpdate extends Component {
 
     async componentDidMount() {
 
-        this.getLatestDoc()
+        this.getLatestDoc(this.props.match.params.id)
 
     }
 
@@ -127,12 +127,27 @@ class MovieUpdate extends Component {
 
         let directors, actors, platforms, genres; 
 
-        let defaultRec = <Record display={"no records"} field={"no field"} nested={0} top={0} />
+        let defaultProps = {
+            display: "No Records",
+            nested: 0,
+            top: 0,
+            field: 'null',
+        }
+
+        let defaultRec = <Record key={1234234} propObj={defaultProps} />
 
         if (this.state.director) {
             directors = this.state.director.map( (dir, i) => {
-                return <Record key={i} display={dir.Name} field={'director'} nested={dir._id} top={this.props.match.params.id} /> 
+                let testProps = {
+                    display: dir.Name,
+                    nested: dir._id,
+                    top: this.props.match.params.id,
+                    field: 'directors',
+                }
+                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc}/> 
             })
+        } else {
+            directors = defaultRec
         }
         
         if (this.state.actors) {
@@ -143,8 +158,10 @@ class MovieUpdate extends Component {
                     top: this.props.match.params.id,
                     field: 'actors',
                 }
-                return <Record key={i} propObj={testProps}/> 
+                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc} /> 
             })
+        }  else {
+            actors = defaultRec
         }
 
         if (this.state.platforms) {
@@ -155,28 +172,35 @@ class MovieUpdate extends Component {
                     top: this.props.match.params.id,
                     field: 'platforms',
                 }
-                return <Record key={i} propObj={testProps}/> 
+                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc}/> 
             })
+        }  else {
+            platforms = defaultRec
         }
 
         if (this.state.genres) {
             genres = this.state.genres.map( (genr, i) => {
                 let testProps = {
-                    display: genr.Name,
+                    display: genr,
                     nested: genr._id,
                     top: this.props.match.params.id,
-                    field: 'genres'
+                    field: 'genres',
                 }
-                return <Record key={i} propObj={testProps}/>
+                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc}/>
             })
+        } else {
+            genres = defaultRec
         }
+ 
+        let titleObj = {display: this.state.name, field: "name"}
 
         return (
+
             <div className="movie-update">
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Title</label>
-                        <Record key={this.props.match.params.id} display={this.state.name} />
+                        <Record key={this.props.match.params.id} propObj={titleObj} />
                     </div>
                     <div>
                         <label>Director</label>
@@ -202,7 +226,6 @@ class MovieUpdate extends Component {
                         <label>Genres</label>
                         {genres}
                     </div>
-                    {/* <input type="submit" value="submit" />  */}
                 </form>
             </div>
         );  
