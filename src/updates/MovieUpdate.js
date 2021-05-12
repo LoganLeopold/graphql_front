@@ -127,20 +127,48 @@ class MovieUpdate extends Component {
 
         let directors, actors, platforms, genres; 
 
+        let defaultRec = <Record display={"no records"} field={"no field"} nested={0} top={0} />
+
         if (this.state.director) {
-            directors = this.state.director.map( (dir, i) => <Record key={i} display={dir.Name} field={'director'} recordId={dir._id} modelId={this.props.match.params.id} /> )
+            directors = this.state.director.map( (dir, i) => {
+                return <Record key={i} display={dir.Name} field={'director'} nested={dir._id} top={this.props.match.params.id} /> 
+            })
         }
         
         if (this.state.actors) {
-            actors = this.state.actors.map( (actor, i) => <Record key={i} display={actor.Name} field={'actors'} recordId={actor._id} modelId={this.props.match.params.id}/> )
+            actors = this.state.actors.map( (actor, i) => {
+                let testProps = {
+                    display: actor.Name,
+                    nested: actor._id,
+                    top: this.props.match.params.id,
+                    field: 'actors',
+                }
+                return <Record key={i} propObj={testProps}/> 
+            })
         }
 
         if (this.state.platforms) {
-            platforms = this.state.platforms.map( (plat, i) => <Record key={i} display={plat.Name} field={'platforms'} recordId={plat._id} modelId={this.props.match.params.id}/> )
+            platforms = this.state.platforms.map( (plat, i) => {
+                let testProps = {
+                    display: plat.Name,
+                    nested: plat._id,
+                    top: this.props.match.params.id,
+                    field: 'platforms',
+                }
+                return <Record key={i} propObj={testProps}/> 
+            })
         }
 
         if (this.state.genres) {
-            genres = this.state.genres.map( (genr, i) => <Record key={i} display={genr} field={'genres'} record={"placeholder"} modelId={this.props.match.params.id}/> )
+            genres = this.state.genres.map( (genr, i) => {
+                let testProps = {
+                    display: genr.Name,
+                    nested: genr._id,
+                    top: this.props.match.params.id,
+                    field: 'genres'
+                }
+                return <Record key={i} propObj={testProps}/>
+            })
         }
 
         return (

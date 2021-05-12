@@ -3,6 +3,8 @@ import { useMutation, gql } from '@apollo/client';
 
 const Record = (props) => {
 
+
+    console.log(props)
     // Remove current doc from record's array
     const docRemove = gql`
         mutation {

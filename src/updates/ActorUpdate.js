@@ -27,7 +27,7 @@ const ActorUpdate = (props) => {
     let name = <h1>{data.actorById.Name}</h1>
 
     let movies = data.actorById.Movies.map( (mov, i) => {
-        return <Record key={i} name={mov.Name} recordId={mov._id} modelId={props.match.params.id} />
+        return <Record key={i} name={mov.Name} nested={mov._id} top={props.match.params.id} />
     })
 
     return (
