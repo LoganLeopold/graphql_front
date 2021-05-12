@@ -156,7 +156,6 @@ class MovieUpdate extends Component {
                     </div>
                     <div>
                         <label>Actors</label>
-                        <input name="actor" defaultValue='' id="actor_names" onChange={this.handleChange}/>
                         {actors}
                     </div>
                     <div>
@@ -166,19 +165,16 @@ class MovieUpdate extends Component {
                     <div>
                         <label>Rotten Tomatoes Audience Score</label>
                         <h3>{this.state.tom_pub}</h3>
-                        <input name="tom_pub" defaultValue='' id="tom_pub" onChange={this.handleChange}/>
                     </div>
                     <div>
                         <label>Rotten Tomatoes Critic Score</label>
                         <h3>{this.state.tom_crit}</h3>
-                        <input name="tom_crit" defaultValue='' id="tom_priv" onChange={this.handleChange}/>
                     </div>
                     <div>
                         <label>Genres</label>
                         {genres}
-                        <input name="genre" defaultValue='' id="genres" onChange={this.handleChange}/>
                     </div>
-                    <input type="submit" value="submit" /> 
+                    {/* <input type="submit" value="submit" />  */}
                 </form>
             </div>
         );  
