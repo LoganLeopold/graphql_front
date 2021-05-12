@@ -54,19 +54,31 @@ nav > * {
 }
 
 .record > p {
-    margin: 0;
-    right: 0;
-    top: 0;
-    background: black;
-    color: white;
-    visibility: hidden;
-    margin-left: 5px;
-    padding: 0 5px;
-    cursor: pointer;
+  display: flex;
+  margin: 0;
+  right: 0;
+  top: 0;
+  background: black;
+  color: white;
+  visibility: hidden;
+  margin-left: 5px;
+  padding: 0px 7px;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+}
+
+.record > p span {
+  padding: 0 3px;
 }
 
 .record:hover > p {
   visibility: visible;
+}
+
+.record:hover > p span:hover {
+  background: white;
+  color: black;
 }
 
 /* Movie Update */
@@ -80,7 +92,20 @@ nav > * {
 }
 
 .movie-update form > * {
+  margin: 20px 0;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 }
+
+.movie-update form label {
+  display: block;
+}
+
+.movie-update form .record {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+}
+
 

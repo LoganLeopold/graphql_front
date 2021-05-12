@@ -22,9 +22,8 @@ const MovieList = (props) => {
         <div>
             {
                 data.movieMany.map( movie => {
-                    // let directors = movie.Director.map( dir => <h3>{dir}</h3>)
                     return (
-                        <div>
+                        <div key={movie.Name}>
                             <h1>{movie.Name}</h1>
                             <label>Director(s)</label>
                             {/* <ul>{directors}</ul> */}

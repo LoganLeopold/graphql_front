@@ -1,6 +1,6 @@
 // Using GraphQL to Mutate
-import React, { useState } from 'react'
-import { useMutation, useQuery, gql } from '@apollo/client';
+import React from 'react'
+import { useQuery, gql } from '@apollo/client';
 import Record from "../Record"
 
 const ActorUpdate = (props) => {

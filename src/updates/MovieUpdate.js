@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios"
+import Record from "../Record"
 
 class MovieUpdate extends Component {
     constructor (props) {
@@ -64,17 +65,17 @@ class MovieUpdate extends Component {
             this.setState({
                 name: Name,
                 director: directorRes.data.reduce( (acc, cur) => {
-                    acc.push(cur.Name)
+                    acc.push(cur)
                     return acc
-                }, []).join(', '),
+                }, []),
                 actor: actorsRes.data.reduce( (acc, cur) => {
-                    acc.push(cur.Name)
+                    acc.push(cur)
                     return acc
-                }, []).join(', '),
+                }, []),
                 platform: platformRes.data.reduce( (acc, cur) => {
-                    acc.push(cur.Name)
+                    acc.push(cur)
                     return acc
-                }, []).join(', '),
+                }, []),
                 tom_pub: TomatoPublic,
                 tom_crit: TomatoCritic,
                 genre: Genres.reduce( (acc, cur) => {
@@ -83,9 +84,7 @@ class MovieUpdate extends Component {
                 }, []).join(', '),
             }, () => {
 
-                const stateSnapshot = Object.entries(this.state)
-
-                stateSnapshot.forEach( snap => document.querySelector(`[name='${snap[0]}']`).value = snap[1] )
+                console.log("latestDoc SetState fired")
 
             })
 
@@ -133,24 +132,6 @@ class MovieUpdate extends Component {
             }
         })
 
-            // let res = await axios({
-            //     method: "PUT",
-            //     url: `http://localhost:8000/movie/testAbs/${this.props.match.params.id}`,
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         'Access-Control-Allow-Origin' : 'https://localhost:8000',
-            //     },
-            //     data: {
-            //         name: this.state.name,
-            //         director: this.state.director,
-            //         actor: this.state.actor,
-            //         platform: this.state.platform,
-            //         tom_pub: this.state.tom_pub,
-            //         tom_crit: this.state.tom_crit,
-            //         genre: this.state.genre,
-            //     }
-            // })
-
         if (res.status === 200) {
             console.log(res)
             this.getLatestDoc()
@@ -162,40 +143,54 @@ class MovieUpdate extends Component {
 
     render() {
 
-        // let actors = this.state.actor.split(',').map( actor => <h1>{actor.trim()}</h1> )
+        let directors, actors, platforms; 
 
+        if (this.state.director.length > 0) {
+            directors = this.state.director.map( (dir, i) => <Record key={i} display={dir.Name} recordId={dir._id} modelId={this.props.match.params.id} /> )
+        }
+        
+        if (this.state.actor.length > 0) {
+            actors = this.state.actor.map( (actor, i) => <Record key={i} display={actor.Name} recordId={actor._id} modelId={this.props.match.params.id}/> )
+        }
 
+        if (this.state.platform.length > 0) {
+            platforms = this.state.platform.map( (plat, i) => <Record key={i} display={plat.Name} recordId={plat._id} modelId={this.props.match.params.id}/> )
+        }
 
         return (
-            <div class="movie-update">
+            <div className="movie-update">
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Title</label>
-                        <input name="name" defaultValue='' id="movie_name" onChange={this.handleChange}/>
+                        <Record key={this.props.match.params.id} display={this.state.name} />
+                        {/* <input name="name" defaultValue='' id="movie_name" onChange={this.handleChange}/> */}
                         </div>
                     <div>
                         <label>Director</label>
-                        <input name="director" defaultValue='' id="director_name" onChange={this.handleChange}/>
+                        {directors}
                         </div>
                     <div>
                         <label>Actors</label>
                         <input name="actor" defaultValue='' id="actor_names" onChange={this.handleChange}/>
-                        {/* {actors} */}
+                        {actors}
                         </div>
                     <div>
                         <label>Platforms</label>
-                        <input name="platform" defaultValue='' id="platform_names" onChange={this.handleChange}/>
+                        {platforms}
                         </div>
                     <div>
                         <label>Rotten Tomatoes Audience Score</label>
+                        <h3>{this.state.tom_pub}</h3>
                         <input name="tom_pub" defaultValue='' id="tom_pub" onChange={this.handleChange}/>
                         </div>
                     <div>
                         <label>Rotten Tomatoes Critic Score</label>
+                        <h3>{this.state.tom_crit}</h3>
                         <input name="tom_crit" defaultValue='' id="tom_priv" onChange={this.handleChange}/>
                         </div>
                     <div>
                         <label>Genres</label>
+                        <h3>{this.state.genre}</h3>
                         <input name="genre" defaultValue='' id="genres" onChange={this.handleChange}/>
                     </div>
                     <input type="submit" value="submit" /> 

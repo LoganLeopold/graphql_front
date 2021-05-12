@@ -1,18 +1,46 @@
 import React from 'react'
 import { useMutation, gql } from '@apollo/client';
-import axios from 'axios';
 
 const Record = (props) => {
 
-    const actorU = gql`
+    // Remove current doc from record's array
+    const docRemove = gql`
         mutation {
-            actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}")
+            actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}") {
+                _id
+            }
         }
     `
 
-    const [deleteMovie, { loading, error }] = useMutation(actorU, {
+    // Remove record from current doc's corresponding array
+
+    /*
+
+    If this is to truly adapt, we need two mutations. We'll use ActorUpdate to think.
+
+    Data types from state: {
+        [objectID],
+        objectID,
+        [],
+        Int,
+        String
+    }
+
+    Resolver needs to know
+
+    We can use recordId to check for need to resolve relationships. 
+
+    1 Delete
+        A - if record is related Model
+            a) Use movie ID to remove actor from movie
+            b) Delete movie record from actor 
+        B - if record is simple value
+            a) Use movie ID to remove
+    */
+
+    const [deleteDoc, { loading, error }] = useMutation(docRemove, {
         onCompleted(data) {
-            if (data) {
+            if (data) {    
                 console.log(data)
             } else if (loading) {
                 console.log("loading")
@@ -22,22 +50,14 @@ const Record = (props) => {
         }
     });
 
-    const deleteRecord = async (e) => {
-        deleteMovie()
-        // let movieTest = await axios({
-        //     method: "GET",
-        //     url: `http://localhost:8000/movie/${props.recordId}`,
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         'Access-Control-Allow-Origin' : 'https://localhost:8000',
-        //     },
-        // })
+    const deleteRecordEvent = async (e) => {
+        deleteDoc()
     }
 
     return (
         <div className="record">
-            <h3>{props.name}</h3>
-            <p onClick={deleteRecord}>-</p>
+            <h3>{props.display}</h3>
+            <p onClick={deleteRecordEvent}><span>edit</span><span>-</span></p>
         </div>
     )
 
