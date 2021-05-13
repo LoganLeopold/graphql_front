@@ -14,7 +14,7 @@ class MovieUpdate extends Component {
             platforms: '',
             tom_pub: '',
             tom_crit: '',
-            genres: '',
+            genres: [],
         }
 
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -36,35 +36,35 @@ class MovieUpdate extends Component {
                     query {
                         movieById(_id:"${id}") {
                             _id
-                            Name
-                            Actors {
-                                Name
+                            name
+                            actors {
+                                name
                                 _id
                             }
-                            Platforms{
-                                Name
+                            platforms{
+                                name
                                 _id
                             }
-                            Director
-                            TomatoPublic
-                            TomatoCritic
-                            Genres
+                            director
+                            tomatoublic
+                            tomatoritic
+                            genres
                         }
                     }
                 `
                 }
             })
 
-            let { Name, Director, Actors, Platforms, TomatoPublic, TomatoCritic, Genres } = movie.data.data.movieById
+            let { name, director, actors, platforms, tomatopublic, tomatocritic, genres } = movie.data.data.movieById
 
             this.setState({
-                name: Name,
-                director: Director,
-                actors: Actors,
-                platforms: Platforms,
-                tom_pub: TomatoPublic,
-                tom_crit: TomatoCritic,
-                genres: Genres,
+                name: name,
+                director: director,
+                actors: actors,
+                platforms: platforms,
+                tom_pub: tomatopublic,
+                tom_crit: tomatocritic,
+                genres: genres,
             }, () => {
 
                 console.log("latestDoc SetState fired")
@@ -135,7 +135,7 @@ class MovieUpdate extends Component {
         // Directors
         if (this.state.director) {
             directors = this.state.director.map( (dir, i) => {
-                let propsObject = new PropObj(dir.Name, dir._id, this.props.match.params.id, 'directors')
+                let propsObject = new PropObj(dir.Name, dir._id, this.props.match.params.id, 'director')
                 return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         } else {
@@ -174,6 +174,8 @@ class MovieUpdate extends Component {
  
         // Setup for Title
         let titleProps = new PropObj(this.state.name, 0, 0, "name")
+        let tomPubProps = new PropObj(this.state.tom_pub, 0, 0, "tomatopublic")
+        let tomCritProps = new PropObj(this.state.tom_crit, 0, 0, "tomatocritc")
 
         return (
 
@@ -197,11 +199,11 @@ class MovieUpdate extends Component {
                     </div>
                     <div>
                         <label>Rotten Tomatoes Audience Score</label>
-                        <h3>{this.state.tom_pub}</h3>
+                        <Record key={this.state.tom_pub} propObj={tomPubProps} />
                     </div>
                     <div>
                         <label>Rotten Tomatoes Critic Score</label>
-                        <h3>{this.state.tom_crit}</h3>
+                        <Record key={this.state.tom_crit} propObj={tomCritProps} />
                     </div>
                     <div>
                         <label>Genres</label>

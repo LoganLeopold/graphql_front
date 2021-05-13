@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMutation, gql } from '@apollo/client';
 
 const Record = (props) => {
+
+    const [editing, openEditing] = useState(false)
+
+    const { propObj } = props
 
     // Remove current doc from record's array
     const docRemove = gql`
@@ -27,26 +31,6 @@ const Record = (props) => {
         }
     `
 
-    if (props.propObj.nested) {
-        console.log(props.propObj.nested)
-        // if ([objectID]) {
-        //     //
-        // } else if (objectID) {
-        //     //
-        // }
-    } else {
-        console.log("direct edit")
-    }
-    /*
-    if  recordID:
-        if [objectID]
-        if else  objectID
-    else 
-        if []
-        else if Int
-        else if String
-    */
-
     const [deleteDoc, { loading, error }] = useMutation(docRemove, {
         onCompleted(data) {
             if (data) {    
@@ -58,16 +42,49 @@ const Record = (props) => {
             }   
         }
     });
-
+    
     const deleteRecordEvent = async (e) => {
         deleteDoc()
         props.refreshParent(props.propObj.top)
     }
 
+    const revealInput = (e) => {
+        openEditing(!editing)
+    }
+
+    const updateRecordEvent = async (e) => {
+
+        e.preventDefault()
+
+        if (propObj.nested && propObj.top) {
+            console.log(props.propObj.nested)
+            // if ([objectID]) {
+            //     //
+            // } else if (objectID) {
+            //     //
+            // }
+        } else {
+            console.log("direct edit")
+        }
+        /*
+        if  recordID:
+            if [objectID]
+            if else  objectID
+        else 
+            if []
+            else if Int
+            else if String
+        */
+
+    }
+    
     return (
         <div className="record">
-            <h3>{props.propObj.display}</h3>
-            <p onClick={deleteRecordEvent}><span>edit</span><span>-</span></p>
+            <h3 >{props.propObj.display}</h3> 
+            { editing && (<input /> )}
+            { editing && (<input type="submit" value="+" onSubmit={updateRecordEvent} />)}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" onClick={revealInput}></img>
+            { !editing && (<span onClick={deleteRecordEvent}>-</span>)}
         </div>
     )
 
