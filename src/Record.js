@@ -27,6 +27,16 @@ const Record = (props) => {
         }
     `
 
+    if (props.propObj.nested) {
+        console.log(props.propObj.nested)
+        // if ([objectID]) {
+        //     //
+        // } else if (objectID) {
+        //     //
+        // }
+    } else {
+        console.log("direct edit")
+    }
     /*
     if  recordID:
         if [objectID]
@@ -54,7 +64,6 @@ const Record = (props) => {
         props.refreshParent(props.propObj.top)
     }
 
-    console.log(props.propsObj)
     return (
         <div className="record">
             <h3>{props.propObj.display}</h3>

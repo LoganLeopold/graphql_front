@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { gql } from '@apollo/client';
 import axios from 'axios'
 import Record from "../Record"
+import { PropObj } from '../utilities'
 
 class MovieUpdate extends Component {
     constructor (props) {
@@ -34,15 +35,15 @@ class MovieUpdate extends Component {
                   query: `
                     query {
                         movieById(_id:"${id}") {
-                                _id
+                            _id
                             Name
                             Actors {
-                            Name
-                                    _id
+                                Name
+                                _id
                             }
                             Platforms{
-                            Name
-                            _id
+                                Name
+                                _id
                             }
                             Director
                             TomatoPublic
@@ -127,72 +128,52 @@ class MovieUpdate extends Component {
 
         let directors, actors, platforms, genres; 
 
-        let defaultProps = {
-            display: "No Records",
-            nested: 0,
-            top: 0,
-            field: 'null',
-        }
-
+        // Default for no record
+        let defaultProps = new PropObj("No Records", 0, 0, "null")
         let defaultRec = <Record key={1234234} propObj={defaultProps} />
 
+        // Directors
         if (this.state.director) {
             directors = this.state.director.map( (dir, i) => {
-                let testProps = {
-                    display: dir.Name,
-                    nested: dir._id,
-                    top: this.props.match.params.id,
-                    field: 'directors',
-                }
-                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc}/> 
+                let propsObject = new PropObj(dir.Name, dir._id, this.props.match.params.id, 'directors')
+                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         } else {
             directors = defaultRec
         }
         
+        // Actors
         if (this.state.actors) {
             actors = this.state.actors.map( (actor, i) => {
-                let testProps = {
-                    display: actor.Name,
-                    nested: actor._id,
-                    top: this.props.match.params.id,
-                    field: 'actors',
-                }
-                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc} /> 
+                let propsObject = new PropObj(actor.Name, actor._id, this.props.match.params.id, "actors")
+                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc} /> 
             })
         }  else {
             actors = defaultRec
         }
 
+        // Platforms
         if (this.state.platforms) {
             platforms = this.state.platforms.map( (plat, i) => {
-                let testProps = {
-                    display: plat.Name,
-                    nested: plat._id,
-                    top: this.props.match.params.id,
-                    field: 'platforms',
-                }
-                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc}/> 
+                let propsObject = new PropObj(plat.Name, plat._id, this.props.match.params.id, 'platform')
+                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         }  else {
             platforms = defaultRec
         }
 
+        // Genres
         if (this.state.genres) {
             genres = this.state.genres.map( (genr, i) => {
-                let testProps = {
-                    display: genr,
-                    nested: genr._id,
-                    top: this.props.match.params.id,
-                    field: 'genres',
-                }
-                return <Record key={i} propObj={testProps} refreshParent={this.getLatestDoc}/>
+                let propsObject = new PropObj(genr, 0, this.props.match.params.id, 'genres')
+                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/>
             })
         } else {
             genres = defaultRec
         }
  
-        let titleObj = {display: this.state.name, field: "name"}
+        // Setup for Title
+        let titleProps = new PropObj(this.state.name, 0, 0, "name")
 
         return (
 
@@ -200,7 +181,7 @@ class MovieUpdate extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Title</label>
-                        <Record key={this.props.match.params.id} propObj={titleObj} />
+                        <Record key={this.props.match.params.id} propObj={titleProps} />
                     </div>
                     <div>
                         <label>Director</label>
