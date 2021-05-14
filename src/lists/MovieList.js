@@ -8,7 +8,7 @@ const MovieList = (props) => {
         query {
             movieMany {
                 _id
-                Name
+                name
             }
         }
     `
@@ -23,10 +23,9 @@ const MovieList = (props) => {
             {
                 data.movieMany.map( movie => {
                     return (
-                        <div key={movie.Name}>
-                            <h1>{movie.Name}</h1>
+                        <div key={movie.name}>
+                            <h1>{movie.name}</h1>
                             <label>Director(s)</label>
-                            {/* <ul>{directors}</ul> */}
                             <Link to={`/movie/update/${movie._id}`}>
                                 <button>Update Movie</button>
                             </Link>

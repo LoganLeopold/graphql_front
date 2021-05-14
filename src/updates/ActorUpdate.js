@@ -1,16 +1,17 @@
 // Using GraphQL to Mutate
 import React from 'react'
 import { useQuery, gql } from '@apollo/client';
-import Record from "../Record"
+import RelatedRecord from "../records/RelatedRecord.js"
+import { PropObj } from "../utilities"
 
 const ActorUpdate = (props) => {
 
     const actorQ = gql`
         query {
             actorById(_id:"${props.match.params.id}") {
-                Name
-                Movies {
-                    Name
+                name
+                movies {
+                    name
                     _id
                 }
             }
@@ -24,10 +25,11 @@ const ActorUpdate = (props) => {
         return <p>Error :(</p>;
     }
 
-    let name = <h1>{data.actorById.Name}</h1>
+    let name = <h1>{data.actorById.name}</h1>
 
-    let movies = data.actorById.Movies.map( (mov, i) => {
-        return <Record key={i} name={mov.Name} nested={mov._id} top={props.match.params.id} />
+    let movies = data.actorById.movies.map( (mov, i) => {
+        let movieProps = new PropObj(mov.name, mov._id, props.match.params.id, "movies")
+        return <RelatedRecord key={i} propObj={movieProps} />
     })
 
     return (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import { gql } from '@apollo/client';
 import axios from 'axios'
-import Record from "../Record"
+import SimpleRecord from "../records/SimpleRecord"
+import RelatedRecord from "../records/RelatedRecord"
 import { PropObj } from '../utilities'
 
 class MovieUpdate extends Component {
@@ -9,7 +9,7 @@ class MovieUpdate extends Component {
         super(props)
         this.state = {
             name: '',
-            director: '',
+            directors: '',
             actors: '',
             platforms: '',
             tom_pub: '',
@@ -38,28 +38,33 @@ class MovieUpdate extends Component {
                             _id
                             name
                             actors {
-                                name
+                              name
                                 _id
                             }
-                            platforms{
-                                name
-                                _id
+                            platforms {
+                              name
+                              _id
                             }
-                            director
-                            tomatoublic
-                            tomatoritic
+                            directors {
+                              _id
+                              name
+                            }
+                            tomatopublic
+                            tomatocritic
                             genres
-                        }
+                          }
                     }
                 `
                 }
             })
 
-            let { name, director, actors, platforms, tomatopublic, tomatocritic, genres } = movie.data.data.movieById
+            console.log(movie)
+
+            let { name, directors, actors, platforms, tomatopublic, tomatocritic, genres } = movie.data.data.movieById
 
             this.setState({
                 name: name,
-                director: director,
+                directors: directors,
                 actors: actors,
                 platforms: platforms,
                 tom_pub: tomatopublic,
@@ -130,13 +135,13 @@ class MovieUpdate extends Component {
 
         // Default for no record
         let defaultProps = new PropObj("No Records", 0, 0, "null")
-        let defaultRec = <Record key={1234234} propObj={defaultProps} />
+        let defaultRec = <SimpleRecord key={1234234} propObj={defaultProps} />
 
-        // Directors
-        if (this.state.director) {
-            directors = this.state.director.map( (dir, i) => {
-                let propsObject = new PropObj(dir.Name, dir._id, this.props.match.params.id, 'director')
-                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
+        // Director
+        if (this.state.directors) {
+            directors = this.state.directors.map( (dir, i) => {
+                let propsObject = new PropObj(dir.name, dir._id, this.props.match.params.id, 'movies')
+                return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         } else {
             directors = defaultRec
@@ -145,28 +150,28 @@ class MovieUpdate extends Component {
         // Actors
         if (this.state.actors) {
             actors = this.state.actors.map( (actor, i) => {
-                let propsObject = new PropObj(actor.Name, actor._id, this.props.match.params.id, "actors")
-                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc} /> 
+                let propsObject = new PropObj(actor.name, actor._id, this.props.match.params.id, "movies")
+                return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc} /> 
             })
-        }  else {
+        } else {
             actors = defaultRec
         }
 
         // Platforms
         if (this.state.platforms) {
             platforms = this.state.platforms.map( (plat, i) => {
-                let propsObject = new PropObj(plat.Name, plat._id, this.props.match.params.id, 'platform')
-                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
+                let propsObject = new PropObj(plat.name, plat._id, this.props.match.params.id, 'movies')
+                return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
-        }  else {
+        } else {
             platforms = defaultRec
         }
 
         // Genres
         if (this.state.genres) {
             genres = this.state.genres.map( (genr, i) => {
-                let propsObject = new PropObj(genr, 0, this.props.match.params.id, 'genres')
-                return <Record key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/>
+                let propsObject = new PropObj(genr, 0, this.props.match.params.id, 'movies')
+                return <SimpleRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/>
             })
         } else {
             genres = defaultRec
@@ -183,7 +188,7 @@ class MovieUpdate extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Title</label>
-                        <Record key={this.props.match.params.id} propObj={titleProps} />
+                        <SimpleRecord key={this.props.match.params.id} propObj={titleProps} refreshParent={this.getLatestDoc}/>
                     </div>
                     <div>
                         <label>Director</label>
@@ -199,11 +204,11 @@ class MovieUpdate extends Component {
                     </div>
                     <div>
                         <label>Rotten Tomatoes Audience Score</label>
-                        <Record key={this.state.tom_pub} propObj={tomPubProps} />
+                        <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />
                     </div>
                     <div>
                         <label>Rotten Tomatoes Critic Score</label>
-                        <Record key={this.state.tom_crit} propObj={tomCritProps} />
+                        <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
                     </div>
                     <div>
                         <label>Genres</label>

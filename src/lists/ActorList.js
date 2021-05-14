@@ -8,9 +8,9 @@ const ActorList = (props) => {
         query {
             actorMany {
                 _id
-                Name
-                Movies {
-                    Name
+                name
+                movies {
+                    name
                 }
             }
         }
@@ -25,8 +25,8 @@ const ActorList = (props) => {
         <div className="allActors">
             {
                 data.actorMany.map( actor => { 
-                    let name = actor.Name
-                    let movies = actor.Movies.map( movie => <li key={movie.Name}>{movie.Name}</li>)
+                    let name = actor.name
+                    let movies = actor.movies.map( movie => <li key={movie.name}>{movie.name}</li>)
                     return (
                         <div key={actor._id} className="actor">
                             <h1>{name}</h1>

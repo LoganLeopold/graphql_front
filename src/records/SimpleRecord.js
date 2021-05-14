@@ -1,40 +1,29 @@
 import React, { useState } from 'react'
 import { useMutation, gql } from '@apollo/client';
+import { capitalize } from '../utilities'
 
-const Record = (props) => {
+const SimpleRecord = (props) => {
 
     const [editing, openEditing] = useState(false)
 
     const { propObj } = props
 
+    console.log(propObj.nested, propObj.top, propObj.field, )
+
     // Remove current doc from record's array
     const docRemove = gql`
         mutation {
-            actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}") {
+            nested${"ModelName placehold"}DeleteHandle (actorId: "${propObj.nested}", docId: "${propObj.top}", docModel: "${propObj.field}") {
+                name
                 _id
-            }
-        }
-    `
-    // Remove record from current doc's corresponding array
-    const recordRemove = gql`
-        mutation {
-            actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}") {
-                _id
-            }
-        }
-    `
-    const valueChange = gql`
-        mutation {
-            actorUpdateByIdCascade( _id:"${props.recordId}", modelId: "${props.modelId}") {
-                _id
-            }
+            } 
         }
     `
 
     const [deleteDoc, { loading, error }] = useMutation(docRemove, {
         onCompleted(data) {
             if (data) {    
-                console.log(data)
+                props.refreshParent(props.propObj.top)
             } else if (loading) {
                 console.log("loading")
             } else if (error) {
@@ -45,7 +34,6 @@ const Record = (props) => {
     
     const deleteRecordEvent = async (e) => {
         deleteDoc()
-        props.refreshParent(props.propObj.top)
     }
 
     const revealInput = (e) => {
@@ -89,4 +77,4 @@ const Record = (props) => {
     )
 
 }
- export default Record
+ export default SimpleRecord

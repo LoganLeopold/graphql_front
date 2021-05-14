@@ -63,12 +63,13 @@ nav > * {
   cursor: pointer;
 }
 
-.record > img {
+.record img {
   height: 25px;
   width: 25px;
 }
 
-.record > img:hover {
+
+.record img:hover {
   background: red;
 }
 
