@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import SimpleRecord from "../records/SimpleRecord"
 import RelatedRecord from "../records/RelatedRecord"
-import { PropObj } from '../utilities'
+import { RelatedPropObj, SimplePropObj } from '../utilities'
 
 class MovieUpdate extends Component {
     constructor (props) {
@@ -134,13 +134,13 @@ class MovieUpdate extends Component {
         let directors, actors, platforms, genres; 
 
         // Default for no record
-        let defaultProps = new PropObj("No Records", 0, 0, "null")
+        let defaultProps = new SimplePropObj("No Records", 0, 0, "null")
         let defaultRec = <SimpleRecord key={1234234} propObj={defaultProps} />
 
         // Director
         if (this.state.directors) {
             directors = this.state.directors.map( (dir, i) => {
-                let propsObject = new PropObj(dir.name, dir._id, this.props.match.params.id, 'movies')
+                let propsObject = new RelatedPropObj(dir.name, dir._id, this.props.match.params.id, 'movies')
                 return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         } else {
@@ -150,7 +150,7 @@ class MovieUpdate extends Component {
         // Actors
         if (this.state.actors) {
             actors = this.state.actors.map( (actor, i) => {
-                let propsObject = new PropObj(actor.name, actor._id, this.props.match.params.id, "movies")
+                let propsObject = new RelatedPropObj(actor.name, actor._id, this.props.match.params.id, "movies")
                 return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc} /> 
             })
         } else {
@@ -160,7 +160,7 @@ class MovieUpdate extends Component {
         // Platforms
         if (this.state.platforms) {
             platforms = this.state.platforms.map( (plat, i) => {
-                let propsObject = new PropObj(plat.name, plat._id, this.props.match.params.id, 'movies')
+                let propsObject = new RelatedPropObj(plat.name, plat._id, this.props.match.params.id, 'movies')
                 return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         } else {
@@ -170,7 +170,7 @@ class MovieUpdate extends Component {
         // Genres
         if (this.state.genres) {
             genres = this.state.genres.map( (genr, i) => {
-                let propsObject = new PropObj(genr, 0, this.props.match.params.id, 'movies')
+                let propsObject = new SimplePropObj(genr, 0, this.props.match.params.id, 'movies')
                 return <SimpleRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/>
             })
         } else {
@@ -178,9 +178,9 @@ class MovieUpdate extends Component {
         }
  
         // Setup for Title
-        let titleProps = new PropObj(this.state.name, 0, 0, "name")
-        let tomPubProps = new PropObj(this.state.tom_pub, 0, 0, "tomatopublic")
-        let tomCritProps = new PropObj(this.state.tom_crit, 0, 0, "tomatocritc")
+        let titleProps = new SimplePropObj(this.state.name, 0, 0, "name")
+        let tomPubProps = new SimplePropObj(this.state.tom_pub, 0, 0, "tomatopublic")
+        let tomCritProps = new SimplePropObj(this.state.tom_crit, 0, 0, "tomatocritc")
 
         return (
 

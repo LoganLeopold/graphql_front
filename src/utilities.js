@@ -2,11 +2,18 @@
 
 module.exports = {
 
-    PropObj: class PropObject {
-        constructor(display, nested, top, field) {
-            this.display = display;
-            this.nested = nested;
-            this.top = top;
+    RelatedPropObj: class RelatedPropObject {
+        constructor(recordData, currentModelData, field) {
+            this.recordData = recordData;
+            this.currentModelData = currentModelData
+            this.field = field
+        }
+    },
+
+    SimplePropObj: class SimplePropObject {
+        constructor(dataType, data, field) {
+            this.dataType = dataType;
+            this.data = data;
             this.field = field
         }
     },
