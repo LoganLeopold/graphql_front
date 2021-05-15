@@ -142,35 +142,19 @@ class MovieUpdate extends Component {
 
         // Director
         if (this.state.directors) {
-            directors = this.state.directors.map( (dir, i) => {
-                let propsObject = new RelatedPropObj(dir, this.state)
-                return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
-            })
+            returnRelatedRecords(this.state.directors, this.state, [["refreshParent", this.getLatestDoc]])
         } else {
             directors = defaultRec
         }
         
         // Actors
         if (this.state.actors) {
-            actors = this.state.actors.map( (actor, i) => {
-                let propsObject = new RelatedPropObj(actor, this.state)
-                return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc} /> 
-            })
+            actors = returnRelatedRecords(this.state.actors, this.state, [["refreshParent", this.getLatestDoc]])
         } else {
             actors = defaultRec
         }
 
         // Platforms
-        if (this.state.platforms) {
-            platforms = this.state.platforms.map( (plat, i) => {
-                let propsObject = new RelatedPropObj(plat, this.state)
-                return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
-            })
-            // platforms = createRecords(this.state.platforms, this.state, ['refreshParent', this.getLatestDoc])
-        } else {
-            platforms = defaultRec
-        }
-
         if (this.state.platforms) {
             platforms = returnRelatedRecords(this.state.platforms, this.state, [["refreshParent", this.getLatestDoc]])
         } else {
