@@ -37,17 +37,21 @@ class MovieUpdate extends Component {
                         movieById(_id:"${id}") {
                             _id
                             name
+                            modelName
                             actors {
                               name
-                                _id
+                              _id
+                              modelName
                             }
                             platforms {
                               name
                               _id
+                              modelName
                             }
                             directors {
                               _id
                               name
+                              modelName
                             }
                             tomatopublic
                             tomatocritic
@@ -60,7 +64,7 @@ class MovieUpdate extends Component {
 
             console.log(movie)
 
-            let { name, directors, actors, platforms, tomatopublic, tomatocritic, genres } = movie.data.data.movieById
+            let { name, directors, actors, platforms, tomatopublic, tomatocritic, genres, modelName } = movie.data.data.movieById
 
             this.setState({
                 name: name,
@@ -70,6 +74,7 @@ class MovieUpdate extends Component {
                 tom_pub: tomatopublic,
                 tom_crit: tomatocritic,
                 genres: genres,
+                modelName: modelName,
             }, () => {
 
                 console.log("latestDoc SetState fired")
@@ -134,13 +139,13 @@ class MovieUpdate extends Component {
         let directors, actors, platforms, genres; 
 
         // Default for no record
-        let defaultProps = new SimplePropObj("No Records", 0, 0, "null")
+        let defaultProps = new SimplePropObj(String, "No Records", null)
         let defaultRec = <SimpleRecord key={1234234} propObj={defaultProps} />
 
         // Director
         if (this.state.directors) {
             directors = this.state.directors.map( (dir, i) => {
-                let propsObject = new RelatedPropObj(dir.name, dir._id, this.props.match.params.id, 'movies')
+                let propsObject = new RelatedPropObj(dir, this.state)
                 return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         } else {
@@ -150,7 +155,7 @@ class MovieUpdate extends Component {
         // Actors
         if (this.state.actors) {
             actors = this.state.actors.map( (actor, i) => {
-                let propsObject = new RelatedPropObj(actor.name, actor._id, this.props.match.params.id, "movies")
+                let propsObject = new RelatedPropObj(actor, this.state)
                 return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc} /> 
             })
         } else {
@@ -160,7 +165,7 @@ class MovieUpdate extends Component {
         // Platforms
         if (this.state.platforms) {
             platforms = this.state.platforms.map( (plat, i) => {
-                let propsObject = new RelatedPropObj(plat.name, plat._id, this.props.match.params.id, 'movies')
+                let propsObject = new RelatedPropObj(plat, this.state)
                 return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
         } else {

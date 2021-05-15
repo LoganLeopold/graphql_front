@@ -3,10 +3,9 @@
 module.exports = {
 
     RelatedPropObj: class RelatedPropObject {
-        constructor(recordData, currentModelData, field) {
+        constructor(recordData, currentModelData) {
             this.recordData = recordData;
             this.currentModelData = currentModelData
-            this.field = field
         }
     },
 
