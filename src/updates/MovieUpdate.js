@@ -61,7 +61,7 @@ class MovieUpdate extends Component {
                 `
                 }
             })
-
+            
             let { name, directors, actors, platforms, tomatopublic, tomatocritic, genres, modelName } = movie.data.data.movieById
 
             this.setState({
@@ -185,41 +185,47 @@ class MovieUpdate extends Component {
         let tomPubProps = new SimplePropObj(this.state.tom_pub, 0, 0, "tomatopublic")
         let tomCritProps = new SimplePropObj(this.state.tom_crit, 0, 0, "tomatocritc")
 
-        return (
+        // if (this.state) {
 
-            <div className="movie-update">
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label>Title</label>
-                        <SimpleRecord key={this.props.match.params.id} propObj={titleProps} refreshParent={this.getLatestDoc}/>
-                    </div>
-                    <div>
-                        <label>Director</label>
-                        {directors}
-                    </div>
-                    <div>
-                        <label>Actors</label>
-                        {actors}
-                    </div>
-                    <div>
-                        <label>Platforms</label>
-                        {platforms}
-                    </div>
-                    <div>
-                        <label>Rotten Tomatoes Audience Score</label>
-                        <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />
-                    </div>
-                    <div>
-                        <label>Rotten Tomatoes Critic Score</label>
-                        <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
-                    </div>
-                    <div>
-                        <label>Genres</label>
-                        {genres}
-                    </div>
-                </form>
-            </div>
-        );  
+            return (
+
+                <div className="movie-update">
+                    <form onSubmit={this.handleSubmit}>
+                        <div>
+                            <label>Title</label>
+                            <SimpleRecord key={this.props.match.params.id} propObj={titleProps} refreshParent={this.getLatestDoc}/>
+                        </div>
+                        <div>
+                            <label>Director</label>
+                            {directors}
+                        </div>
+                        <div>
+                            <label>Actors</label>
+                            {actors}
+                        </div>
+                        <div>
+                            <label>Platforms</label>
+                            {platforms}
+                        </div>
+                        <div>
+                            <label>Rotten Tomatoes Audience Score</label>
+                            <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />
+                        </div>
+                        <div>
+                            <label>Rotten Tomatoes Critic Score</label>
+                            <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
+                        </div>
+                        <div>
+                            <label>Genres</label>
+                            {genres}
+                        </div>
+                    </form>
+                </div>
+            );  
+        
+        // } else {
+        //     return <h1> Loading... </h1>
+        // }
     }
 }
 

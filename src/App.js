@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div className="App">
   
-        <nav className='top' style={{display: 'flex'}}>
+        <nav className='top' style={{display: 'flex', flexWrap: "wrap"}}>
           <h1> <Link className='homepage' to='/'>Home</Link></h1>
           <br></br> 
           <h2> <Link to={'/actor/'}>Actors</Link></h2> 
