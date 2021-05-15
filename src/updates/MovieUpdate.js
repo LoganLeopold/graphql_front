@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import SimpleRecord from "../records/SimpleRecord"
 import RelatedRecord from "../records/RelatedRecord"
-import { RelatedPropObj, SimplePropObj } from '../utilities'
+import { RelatedPropObj, SimplePropObj, depluralize, capitalize, returnRelatedRecords } from "../utilities"
 
 class MovieUpdate extends Component {
     constructor (props) {
@@ -166,6 +166,13 @@ class MovieUpdate extends Component {
                 let propsObject = new RelatedPropObj(plat, this.state)
                 return <RelatedRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/> 
             })
+            // platforms = createRecords(this.state.platforms, this.state, ['refreshParent', this.getLatestDoc])
+        } else {
+            platforms = defaultRec
+        }
+
+        if (this.state.platforms) {
+            platforms = returnRelatedRecords(this.state.platforms, this.state, [["refreshParent", this.getLatestDoc]])
         } else {
             platforms = defaultRec
         }

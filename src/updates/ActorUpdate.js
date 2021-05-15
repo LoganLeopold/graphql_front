@@ -2,7 +2,7 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client';
 import RelatedRecord from "../records/RelatedRecord.js"
-import { PropObj } from "../utilities"
+const { RelatedPropObj } = require('../utilities')
 
 const ActorUpdate = (props) => {
 
@@ -28,7 +28,7 @@ const ActorUpdate = (props) => {
     let name = <h1>{data.actorById.name}</h1>
 
     let movies = data.actorById.movies.map( (mov, i) => {
-        let movieProps = new PropObj(mov.name, mov._id, props.match.params.id, "movies")
+        let movieProps = new RelatedPropObj(mov, data)
         return <RelatedRecord key={i} propObj={movieProps} />
     })
 

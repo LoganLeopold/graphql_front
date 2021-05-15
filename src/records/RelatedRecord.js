@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMutation, gql } from '@apollo/client';
-import { capitalize, depluralize } from '../utilities'
+const { capitalize, depluralize } = require('../utilities')
+// import { capitalize, depluralize } from "../utilities"
 
 const RelatedRecord = (props) => {
 
