@@ -62,8 +62,6 @@ class MovieUpdate extends Component {
                 }
             })
 
-            console.log(movie)
-
             let { name, directors, actors, platforms, tomatopublic, tomatocritic, genres, modelName } = movie.data.data.movieById
 
             this.setState({
