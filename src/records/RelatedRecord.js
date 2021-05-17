@@ -9,21 +9,19 @@ const RelatedRecord = (props) => {
 
     const { propObj: { recordData, currentModelData } } = props
 
-    let jsonRData = JSON.stringify(recordData)
-    let jsonMData = JSON.stringify(currentModelData)
+    let rDataArray = Object.entries(recordData)
+    let mDataArray = Object.entries(currentModelData)
 
-    console.log(JSON.parse(jsonRData))
-    console.log(`${jsonMData}`)
-    // console.log(`simple${capitalize(currentModelData.modelName, 0, 1)}UpdateHandle`)
+    // console.log(rDataArray)
 
-    const docRemove = gql`
-        mutation {
-            simple${currentModelData.modelName}UpdateHandle (recordData: "${jsonRData}", currentModelData: "${jsonMData}") {
-                name
-                _id
-            } 
-        }
-    `
+    // const docRemove = gql`
+    //     mutation {
+    //         simple${currentModelData.modelName}UpdateHandle (recordData: ${rDataArray}, currentModelData: ${mDataArray}) {
+    //             name
+    //             _id
+    //         } 
+    //     }
+    // `
 
     // const [deleteDoc, { loading, error }] = useMutation(docRemove, {
     //     onCompleted(data) {
