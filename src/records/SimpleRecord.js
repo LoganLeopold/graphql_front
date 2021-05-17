@@ -5,64 +5,68 @@ import { capitalize } from '../utilities'
 const SimpleRecord = (props) => {
 
     const [editing, openEditing] = useState(false)
+    
+    const { propObj: { recordData, currentModelData } } = props
+    let field = Object.keys(recordData)[0]
+    let value = Object.values(recordData)[0]
 
-    const { propObj: {dataType, data, field} } = props
+    const docRemove = gql`
+        mutation {
+            simpleMoviesDeleteHandle (movieId: "609d5e08364d2e9bc1086b9d", field:"${field}", value: "${value}") {
+                _id
+                name
+            }   
+        } 
+    `
+    
+    const [deleteDoc, { deleteLoading, deleteError }] = useMutation(docRemove, {
+        onCompleted(data) {
+            if (data) {    
+                console.log(data)
+            } else if (deleteLoading) {
+                console.log("loading")
+            } else if (deleteError) {
+                console.log(deleteError)
+            }   
+        }
+    });
 
-    // Remove current doc from record's array
+    const deleteRecordEvent = async (e) => {
+        deleteDoc()
+    }
 
-    // const [deleteDoc, { loading, error }] = useMutation(docRemove, {
+    // const mutTest = gql`
+    //     hold
+    // `
+    
+    // const [testMut, { updateLoading, updateError }] = useMutation( mutTest, {
     //     onCompleted(data) {
-    //         if (data) {    
-    //             props.refreshParent(props.propObj.top)
-    //         } else if (loading) {
+    //         if (data) {
+    //             console.log(data)
+    //         } else if (updateLoading) {
     //             console.log("loading")
-    //         } else if (error) {
-    //             console.log(error)
+    //         } else if (updateError) {
+    //             console.log(updateError)
     //         }   
     //     }
-    // });
+    // })
     
-    // const deleteRecordEvent = async (e) => {
-    //     deleteDoc()
-    // }
-
-    // const revealInput = (e) => {
-    //     openEditing(!editing)
-    // }
-
     // const updateRecordEvent = async (e) => {
-
     //     e.preventDefault()
-
-    //     if (propObj.nested && propObj.top) {
-    //         console.log(props.propObj.nested)
-    //         // if ([objectID]) {
-    //         //     //
-    //         // } else if (objectID) {
-    //         //     //
-    //         // }
-    //     } else {
-    //         console.log("direct edit")
-    //     }
-    //     /*
-    //     if  recordID:
-    //         if [objectID]
-    //         if else  objectID
-    //     else 
-    //         if []
-    //         else if Int
-    //         else if String
-    //     */
-
+    //     testMut()
     // }
+
+    const revealInput = (e) => {
+        openEditing(!editing)
+    }
     
     return (
         <div className="record">
-            {/* <h3 >{props.propObj.display}</h3>  */}
+            <h3 >{value}</h3> 
             { editing && (<input /> )}
             {/* { editing && (<input type="submit" value="+" onSubmit={updateRecordEvent} />)} */}
-            {/* <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" onClick={revealInput}></img> */}
-            {/* { !editing && (<span onClick={deleteRecordEvent}>-</span>)} */}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" onClick={revealInput}></img>
+            { !editing && (<span onClick={deleteRecordEvent}>-</span>)}
         </div>
     )
 

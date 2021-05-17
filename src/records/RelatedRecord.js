@@ -1,16 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMutation, gql } from '@apollo/client';
-const { capitalize, depluralize } = require('../utilities')
-// import { capitalize, depluralize } from "../utilities"
+import { capitalize, depluralize } from "../utilities"
 
 const RelatedRecord = (props) => {
 
-    const { propObj: {recordData, currentModelData} } = props
+    const { propObj: { recordData, currentModelData } } = props
 
     const docRemove = gql`
         mutation {
-            nested${recordData.modelName}DeleteHandle (${capitalize(recordData.modelName)}Id: "${recordData._id}", docId: "${currentModelData._id}", docModel: "${currentModelData.modelName}") {
+            nested${recordData.modelName}DeleteHandle (${capitalize(recordData.modelName, 0, 1)}Id: "${recordData._id}", docId: "${currentModelData._id}", docModel: "${currentModelData.modelName}") {
                 name
                 _id
             } 

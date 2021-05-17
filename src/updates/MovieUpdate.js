@@ -62,9 +62,10 @@ class MovieUpdate extends Component {
                 }
             })
             
-            let { name, directors, actors, platforms, tomatopublic, tomatocritic, genres, modelName } = movie.data.data.movieById
+            let { _id, name, directors, actors, platforms, tomatopublic, tomatocritic, genres, modelName } = movie.data.data.movieById
 
             this.setState({
+                _id: _id,
                 name: name,
                 directors: directors,
                 actors: actors,
@@ -137,8 +138,8 @@ class MovieUpdate extends Component {
         let directors, actors, platforms, genres; 
 
         // Default for no record
-        let defaultProps = new SimplePropObj(String, "No Records", null)
-        let defaultRec = <SimpleRecord key={1234234} propObj={defaultProps} />
+        let defaultProps = new SimplePropObj({placehold: "No records"}, null)
+        let defaultRec = <SimpleRecord propObj={defaultProps} />
 
         // Director
         if (this.state.directors) {
@@ -164,7 +165,7 @@ class MovieUpdate extends Component {
         // Genres
         if (this.state.genres) {
             genres = this.state.genres.map( (genr, i) => {
-                let propsObject = new SimplePropObj(genr, 0, this.props.match.params.id, 'movies')
+                let propsObject = new SimplePropObj({genres: genr}, this.state)
                 return <SimpleRecord key={i} propObj={propsObject} refreshParent={this.getLatestDoc}/>
             })
         } else {
@@ -172,51 +173,35 @@ class MovieUpdate extends Component {
         }
  
         // Setup for Title
-        let titleProps = new SimplePropObj(this.state.name, 0, 0, "name")
-        let tomPubProps = new SimplePropObj(this.state.tom_pub, 0, 0, "tomatopublic")
-        let tomCritProps = new SimplePropObj(this.state.tom_crit, 0, 0, "tomatocritc")
+        let titleProps = new SimplePropObj({name: this.state.name}, this.state)
+        let tomPubProps = new SimplePropObj({tomatopublic: this.state.tom_pub}, this.state)
+        let tomCritProps = new SimplePropObj({tomatocritic: this.state.tom_crit}, this.state)
 
-        // if (this.state) {
-
-            return (
-
-                <div className="movie-update">
-                    <form onSubmit={this.handleSubmit}>
-                        <div>
-                            <label>Title</label>
-                            <SimpleRecord key={this.props.match.params.id} propObj={titleProps} refreshParent={this.getLatestDoc}/>
-                        </div>
-                        <div>
-                            <label>Director</label>
-                            {directors}
-                        </div>
-                        <div>
-                            <label>Actors</label>
-                            {actors}
-                        </div>
-                        <div>
-                            <label>Platforms</label>
-                            {platforms}
-                        </div>
-                        <div>
-                            <label>Rotten Tomatoes Audience Score</label>
-                            <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />
-                        </div>
-                        <div>
-                            <label>Rotten Tomatoes Critic Score</label>
-                            <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
-                        </div>
-                        <div>
-                            <label>Genres</label>
-                            {genres}
-                        </div>
-                    </form>
-                </div>
-            );  
-        
-        // } else {
-        //     return <h1> Loading... </h1>
-        // }
+        return (
+            <div className="movie-update">
+                <form onSubmit={this.handleSubmit}>
+                    <div>
+                        <label>Title</label>
+                        <SimpleRecord propObj={titleProps} refreshParent={this.getLatestDoc}/>
+                    </div>
+                    <div> <label> Director </label> {directors} </div>
+                    <div> <label> Actors </label> {actors} </div>
+                    <div> <label> Platforms </label> {platforms} </div>
+                    <div>
+                        <label>Rotten Tomatoes Audience Score</label>
+                        <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />
+                    </div>
+                    <div>
+                        <label>Rotten Tomatoes Critic Score</label>
+                        <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
+                    </div>
+                    <div>
+                        <label>Genres</label>
+                        {genres}
+                    </div>
+                </form>
+            </div>
+        );  
     }
 }
 
