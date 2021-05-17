@@ -1,5 +1,12 @@
 import RelatedRecord from "./records/RelatedRecord"
 
+let NewPropObj = class NewPropObject {
+    constructor(recordData, currentModelData) {
+        this.recordData = recordData; // 
+        this.currentModelData = currentModelData;
+    }
+}
+
 let RelatedPropObj = class RelatedPropObject {
     constructor(recordData, currentModelData) {
         this.recordData = recordData; // Record instance data (whole nested document object from current doc state)
@@ -52,6 +59,7 @@ let returnRelatedRecords = (recordsArray, stateObject, propsArray) => {
 }
 
 export { 
+    NewPropObj,
     RelatedPropObj, 
     SimplePropObj, 
     capitalize, 

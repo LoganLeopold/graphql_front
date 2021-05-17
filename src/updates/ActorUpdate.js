@@ -9,9 +9,11 @@ const ActorUpdate = (props) => {
         query {
             actorById(_id:"${props.match.params.id}") {
                 name
+                modelName
                 movies {
                     name
                     _id
+                    modelName
                 }
             }
         }

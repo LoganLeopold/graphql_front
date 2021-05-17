@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import SimpleRecord from "../records/SimpleRecord"
-import RelatedRecord from "../records/RelatedRecord"
-import { RelatedPropObj, SimplePropObj, depluralize, capitalize, returnRelatedRecords } from "../utilities"
+import NewRecord from "../records/NewRecord"
+import { SimplePropObj, returnRelatedRecords } from "../utilities"
 
 class MovieUpdate extends Component {
     constructor (props) {
@@ -172,10 +172,13 @@ class MovieUpdate extends Component {
             genres = defaultRec
         }
  
-        // Setup for Title
+        // Setup for simple object props
         let titleProps = new SimplePropObj({name: this.state.name}, this.state)
         let tomPubProps = new SimplePropObj({tomatopublic: this.state.tom_pub}, this.state)
         let tomCritProps = new SimplePropObj({tomatocritic: this.state.tom_crit}, this.state)
+
+        // Setup for new record props
+        // let newGenreProps = new NewPropObj()
 
         return (
             <div className="movie-update">
@@ -197,6 +200,7 @@ class MovieUpdate extends Component {
                     </div>
                     <div>
                         <label>Genres</label>
+                        {/* <NewRecord propObj={newGenreProps} /> */}
                         {genres}
                     </div>
                 </form>

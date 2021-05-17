@@ -77,6 +77,11 @@ nav > * {
   background: red;
 }
 
+/* New Record */
+.new-record {
+  
+}
+
 /* Movie Update */
 .movie-update {
   display: flex;

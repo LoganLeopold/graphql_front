@@ -5,33 +5,42 @@ import { capitalize, depluralize } from "../utilities"
 
 const RelatedRecord = (props) => {
 
+    // console.log(props)
+
     const { propObj: { recordData, currentModelData } } = props
+
+    let jsonRData = JSON.stringify(recordData)
+    let jsonMData = JSON.stringify(currentModelData)
+
+    console.log(JSON.parse(jsonRData))
+    console.log(`${jsonMData}`)
+    // console.log(`simple${capitalize(currentModelData.modelName, 0, 1)}UpdateHandle`)
 
     const docRemove = gql`
         mutation {
-            nested${recordData.modelName}DeleteHandle (${capitalize(recordData.modelName, 0, 1)}Id: "${recordData._id}", docId: "${currentModelData._id}", docModel: "${currentModelData.modelName}") {
+            simple${currentModelData.modelName}UpdateHandle (recordData: "${jsonRData}", currentModelData: "${jsonMData}") {
                 name
                 _id
             } 
         }
     `
 
-    const [deleteDoc, { loading, error }] = useMutation(docRemove, {
-        onCompleted(data) {
-            if (data) {    
-                console.log(data)
-            } else if (loading) {
-                console.log("loading")
-            } else if (error) {
-                console.log(error)
-            }   
-        }
-    });
+    // const [deleteDoc, { loading, error }] = useMutation(docRemove, {
+    //     onCompleted(data) {
+    //         if (data) {    
+    //             console.log(data)
+    //         } else if (loading) {
+    //             console.log("loading")
+    //         } else if (error) {
+    //             console.log(error)
+    //         }   
+    //     }
+    // });
     
-    const deleteRecordEvent = async (e) => {
-        deleteDoc()
-        props.refreshParent(currentModelData._id)
-    }
+    // const deleteRecordEvent = async (e) => {
+    //     deleteDoc()
+    //     props.refreshParent(currentModelData._id)
+    // }
     
     return (
         <div className="record">
@@ -39,7 +48,7 @@ const RelatedRecord = (props) => {
             <Link to={`/${depluralize(recordData.modelName)}/update/${recordData._id}`} target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt={"Pencil For Edit"}></img>
             </Link>
-            <span onClick={deleteRecordEvent}>-</span>
+            {/* <span onClick={deleteRecordEvent}>-</span> */}
         </div>
     )
 
