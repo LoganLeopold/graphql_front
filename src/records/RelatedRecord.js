@@ -12,7 +12,7 @@ const RelatedRecord = (props) => {
     let rDataArray = Object.entries(recordData)
     let mDataArray = Object.entries(currentModelData)
 
-    // console.log(rDataArray)
+    console.log(rDataArray)
 
     // const docRemove = gql`
     //     mutation {
