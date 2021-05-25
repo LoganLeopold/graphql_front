@@ -1,9 +1,12 @@
 // Using GraphQL to Mutate
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery, gql } from '@apollo/client';
 const { returnRelatedRecords } = require('../utilities')
 
 const ActorUpdate = (props) => {
+
+    // const [actorData, setActorData] =  useState()
+    console.log("actor update")
 
     const actorQ = gql`
         query {
@@ -25,6 +28,8 @@ const ActorUpdate = (props) => {
     else if (error) {
         return <p>Error :(</p>;
     }
+
+    console.log(data, error, loading)
 
     let name = <h1>{data.actorById.name}</h1>
 

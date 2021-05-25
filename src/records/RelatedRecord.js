@@ -5,8 +5,6 @@ import { capitalize, depluralize } from "../utilities"
 
 const RelatedRecord = (props) => {
 
-    // console.log(props)
-
     const { propObj: { recordData, currentModelData } } = props
 
     let rDataArray = Object.entries(recordData)
@@ -35,18 +33,19 @@ const RelatedRecord = (props) => {
     //     }
     // });
     
-    // const deleteRecordEvent = async (e) => {
-    //     deleteDoc()
-    //     props.refreshParent(currentModelData._id)
-    // }
+    const deleteRecordEvent = async (e) => {
+        // send delete mutation to delete this recordData from the currentModelData
+        // deleteDoc()
+        props.refreshParent(currentModelData._id)
+    }
     
     return (
         <div className="record">
             <h3 >{recordData.name}</h3> 
-            <Link to={`/${depluralize(recordData.modelName)}/update/${recordData._id}`} target="_blank">
+            <Link to={`/${recordData.modelName}/update/${recordData._id}`} target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt={"Pencil For Edit"}></img>
             </Link>
-            {/* <span onClick={deleteRecordEvent}>-</span> */}
+            <span onClick={deleteRecordEvent}>-</span>
         </div>
     )
 

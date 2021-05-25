@@ -8,35 +8,35 @@ const NewRecord = (props) => {
 
     const { propObj: { recordData, currentData }} = props 
 
-    let update;
+    // let update;
 
-    let update = recordData.modelName ? 
-    // If model, do ref update
-    gql`
-        mutation {
-            // with ref doc
-        }
-    `
-    // If no model, do simple update
-    gql`
-        mutation {
-            // simple update 
-        }
-    `
+    // let update = recordData.modelName ? 
+    // // If model, do ref update
+    // gql`
+    //     mutation {
+    //         // with ref doc
+    //     }
+    // `
+    // // If no model, do simple update
+    // gql`
+    //     mutation {
+    //         // simple update 
+    //     }
+    // `
 
-    let 
+    // let 
 
-    const [updateDoc, { loading, error }] = useMutation(update, {
-        onCompleted(data) {
-            if (data) {    
-                console.log(data)
-            } else if (deleteLoading) {
-                console.log("loading")
-            } else if (deleteError) {
-                console.log(deleteError)
-            }   
-        }
-    })
+    // const [updateDoc, { updateLoading, updateError }] = useMutation(update, {
+    //     onCompleted(data) {
+    //         if (data) {    
+    //             console.log(data)
+    //         } else if (updateLoading) {
+    //             console.log("loading")
+    //         } else if (updateError) {
+    //             console.log(updateError)
+    //         }   
+    //     }
+    // })
 
     const revealInput = (e) => {
         openEditing(!editing)

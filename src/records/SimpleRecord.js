@@ -9,8 +9,6 @@ const SimpleRecord = (props) => {
     let field = currentModelData ? Object.keys(recordData)[0] : "No Records"
     let value = currentModelData ? Object.values(recordData)[0] : "No Records"
 
-    // console.log(field, value)
-
     const docRemove = gql`
         mutation {
             simpleMoviesDeleteHandle (movieId: "${currentModelData}", field:"${field}", value: "${value}") {

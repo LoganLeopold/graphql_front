@@ -26,7 +26,7 @@ const MovieList = (props) => {
                         <div key={movie.name}>
                             <h1>{movie.name}</h1>
                             <label>Director(s)</label>
-                            <Link to={`/movie/update/${movie._id}`}>
+                            <Link to={`/movies/update/${movie._id}`}>
                                 <button>Update Movie</button>
                             </Link>
                         </div>

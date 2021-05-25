@@ -14,7 +14,7 @@ const ActorStart = (props) => {
 
         let res = await axios({
             method: "POST",
-            url: 'http://localhost:8000/actor/create',
+            url: 'http://localhost:8000/actors/create',
             headers: {
                 "Content-Type": "application/json",
                 'Access-Control-Allow-Origin' : 'https://localhost:8000',
@@ -33,7 +33,7 @@ const ActorStart = (props) => {
 
     return (
         <div>
-            <form action="http://localhost:8000/actor/create" method="post" onSubmit={postActor}>
+            <form action="http://localhost:8000/actors/create" method="post" onSubmit={postActor}>
                 <input name="name" value={inpVal} id="actor_name" onChange={handleValChange}/>
                 <input type="submit" value="submit" /> 
             </form>

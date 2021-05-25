@@ -33,7 +33,7 @@ const ActorList = (props) => {
                             <ul>
                                 {movies}
                             </ul>
-                            <Link to={`/actor/update/${actor._id}`}>
+                            <Link to={`/actors/update/${actor._id}`}>
                                 <button>Update Actor</button>
                             </Link>
                         </div>
