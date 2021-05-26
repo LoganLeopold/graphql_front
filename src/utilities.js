@@ -9,14 +9,14 @@ let NewPropObj = class NewPropObject {
 
 let RelatedPropObj = class RelatedPropObject {
     constructor(recordData, currentModelData) {
-        this.recordData = recordData; // Record instance data (whole nested document object from current doc state)
-        this.currentModelData = currentModelData; // Entire state object of current document)
+        this.recordData = recordData; // Subodcument instance for data in current record component (nested object comes from current doc state)
+        this.currentModelData = currentModelData; // Entire state object of current document
     } 
 }
 
 let SimplePropObj = class SimplePropObject {
     constructor(recordData, currentModelData) {
-        this.recordData = recordData; // key: value object for record
+        this.recordData = recordData; // key: value object for field
         this.currentModelData = currentModelData; // Entire state object of current document
     }
 }

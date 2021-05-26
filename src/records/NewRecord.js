@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useMutation, gql } from '@apollo/client';
-// import { capitalize } from '../utilities'
 
 const NewRecord = (props) => {
 

@@ -1,41 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMutation, gql } from '@apollo/client';
-import { capitalize, depluralize } from "../utilities"
 
 const RelatedRecord = (props) => {
 
     const { propObj: { recordData, currentModelData } } = props
 
-    let rDataArray = Object.entries(recordData)
-    let mDataArray = Object.entries(currentModelData)
+    const docRemove = gql`
+        mutation {              
+            simple${recordData.modelName}DeleteHandle (${recordData.modelName}Id: "${recordData._id}", docId: "${currentModelData._id}", docModel: ${currentModelData.modelName}) { 
+                name
+                _id
+            } 
+        }
+    `
 
-    console.log(rDataArray)
-
-    // const docRemove = gql`
-    //     mutation {
-    //         simple${currentModelData.modelName}UpdateHandle (recordData: ${rDataArray}, currentModelData: ${mDataArray}) {
-    //             name
-    //             _id
-    //         } 
-    //     }
-    // `
-
-    // const [deleteDoc, { loading, error }] = useMutation(docRemove, {
-    //     onCompleted(data) {
-    //         if (data) {    
-    //             console.log(data)
-    //         } else if (loading) {
-    //             console.log("loading")
-    //         } else if (error) {
-    //             console.log(error)
-    //         }   
-    //     }
-    // });
+    const [deleteDoc, { loading, error }] = useMutation(docRemove, {
+        onCompleted(data) {
+            if (data) {    
+                console.log(data)
+            } else if (loading) {
+                console.log("loading")
+            } else if (error) {
+                console.log(error)
+            }   
+        }
+    });
     
     const deleteRecordEvent = async (e) => {
         // send delete mutation to delete this recordData from the currentModelData
-        // deleteDoc()
+        deleteDoc()
         props.refreshParent(currentModelData._id)
     }
     

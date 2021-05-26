@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import SimpleRecord from "../records/SimpleRecord"
-import NewRecord from "../records/NewRecord"
 import { SimplePropObj, returnRelatedRecords } from "../utilities"
 
 class MovieUpdate extends Component {
@@ -177,31 +176,27 @@ class MovieUpdate extends Component {
         let tomPubProps = new SimplePropObj({tomatopublic: this.state.tom_pub}, this.state)
         let tomCritProps = new SimplePropObj({tomatocritic: this.state.tom_crit}, this.state)
 
-        // Setup for new record props
-        // let newGenreProps = new NewPropObj()
-
         return (
             <div className="movie-update">
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Title</label>
-                        <SimpleRecord propObj={titleProps} refreshParent={this.getLatestDoc}/>
+                        {/* <SimpleRecord propObj={titleProps} refreshParent={this.getLatestDoc}/> */}
                     </div>
-                    <div> <label> Director </label> {directors} </div>
+                    {/* <div> <label> Director </label> {directors} </div> */}
                     <div> <label> Actors </label> {actors} </div>
                     <div> <label> Platforms </label> {platforms} </div>
                     <div>
                         <label>Rotten Tomatoes Audience Score</label>
-                        <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />
+                        {/* <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} /> */}
                     </div>
                     <div>
                         <label>Rotten Tomatoes Critic Score</label>
-                        <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
+                        {/* <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} /> */}
                     </div>
                     <div>
                         <label>Genres</label>
-                        {/* <NewRecord propObj={newGenreProps} /> */}
-                        {genres}
+                        {/* {genres} */}
                     </div>
                 </form>
             </div>
