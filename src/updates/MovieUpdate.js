@@ -8,9 +8,9 @@ class MovieUpdate extends Component {
         super(props)
         this.state = {
             name: '',
-            directors: '',
-            actors: '',
-            platforms: '',
+            directors: [],
+            actors: [],
+            platforms: [],
             tom_pub: '',
             tom_crit: '',
             genres: [],
@@ -181,22 +181,22 @@ class MovieUpdate extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Title</label>
-                        {/* <SimpleRecord propObj={titleProps} refreshParent={this.getLatestDoc}/> */}
+                        <SimpleRecord propObj={titleProps} refreshParent={this.getLatestDoc}/>
                     </div>
-                    {/* <div> <label> Director </label> {directors} </div> */}
+                    <div> <label> Director </label> {directors} </div>
                     <div> <label> Actors </label> {actors} </div>
                     <div> <label> Platforms </label> {platforms} </div>
                     <div>
                         <label>Rotten Tomatoes Audience Score</label>
-                        {/* <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} /> */}
+                        <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />
                     </div>
                     <div>
                         <label>Rotten Tomatoes Critic Score</label>
-                        {/* <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} /> */}
+                        <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
                     </div>
                     <div>
                         <label>Genres</label>
-                        {/* {genres} */}
+                        {genres}
                     </div>
                 </form>
             </div>

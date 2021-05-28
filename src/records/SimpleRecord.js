@@ -30,7 +30,7 @@ const SimpleRecord = (props) => {
             }   
         }
     })
-    
+
     const updateRecordEvent = async (e) => {
         e.preventDefault()
         updateRecord()
@@ -43,10 +43,9 @@ const SimpleRecord = (props) => {
     return (
         <div className="record">
             <h3 >{value}</h3>
-            {/* { editing && (<input /> )} */}
-            { editing && (<input type="submit" value="+" onSubmit={updateRecordEvent} />)}
-            { recUpdate && <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt="Pencil for edit" onClick={revealInput}></img>}
-            {/* { !editing && currentModelData && (<span onClick={deleteRecordEvent}>-</span>)} */}
+            { editing && currentModelData && (<input /> )}
+            { editing && currentModelData && (<input type="submit" value="+" onSubmit={updateRecordEvent} />)}
+            { currentModelData && <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt="Pencil for edit" onClick={revealInput}></img>}
         </div>
     )
 
