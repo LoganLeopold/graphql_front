@@ -1,27 +1,32 @@
 import RelatedRecord from "./records/RelatedRecord"
 
 let NewPropObj = class NewPropObject {
-    constructor(recordData, currentModelData) {
-        this.recordData = recordData; // 
-        this.currentModelData = currentModelData;
+    constructor(subDoc, currentDocData) {
+        this.subDoc = subDoc; // 
+        this.currentDocData = currentDocData;
     }
 }
 
+// Prop object for subdocument of a current document - returned by this.returnRelatedRecords
 let RelatedPropObj = class RelatedPropObject {
-    constructor(recordData, currentModelData) {
-        this.recordData = recordData; // Subodcument instance for data in current record component (nested object comes from current doc state)
-        this.currentModelData = currentModelData; // Entire state object of current document
+    constructor(subDoc, currentDocData) {
+        this.subDoc = subDoc; // Subdocument instance for data in current record component (comes from current doc state)
+        this.currentDocData = currentDocData; // Entire state object of current document
     } 
 }
 
+// Sending the simple data and the data object of the entire current document to the rendering element
 let SimplePropObj = class SimplePropObject {
-    constructor(recordData, currentModelData) {
-        this.recordData = recordData; // key: value object for field
-        this.currentModelData = currentModelData; // Entire state object of current document
+    constructor(subDoc, currentDocData) {
+        this.subDoc = subDoc; // key: value object for field
+        this.currentDocData = currentDocData; // Entire state object of current document
     }
 }
 
-let capitalize = (word, charAt, slice) => word.charAt(charAt).toUpperCase() + word.slice(slice)
+// Word you want to capitalize, the index at which you want to capitalize the letter, and the index at which you start the word that will go after the capitalized letter
+let capitalize = (word, charAt, slice) => {
+    return word.charAt(charAt).toUpperCase() + word.slice(slice)
+}
 
 let depluralize = word => {
 

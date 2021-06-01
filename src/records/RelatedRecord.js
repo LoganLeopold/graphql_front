@@ -4,11 +4,11 @@ import { useMutation, gql } from '@apollo/client';
 
 const RelatedRecord = (props) => {
 
-    const { propObj: { recordData, currentModelData } } = props
+    const { propObj: { subDoc, currentDocData } } = props
 
     const docRemove = gql`
         mutation {              
-            simple${recordData.modelName}DeleteHandle (${recordData.modelName}Id: "${recordData._id}", docId: "${currentModelData._id}", docModel: ${currentModelData.modelName}) { 
+            simple${subDoc.modelName}DeleteHandle (${subDoc.modelName}Id: "${subDoc._id}", docId: "${currentDocData._id}", docModel: ${currentDocData.modelName}) { 
                 name
                 _id
             } 
@@ -28,15 +28,15 @@ const RelatedRecord = (props) => {
     });
     
     const deleteRecordEvent = async (e) => {
-        // send delete mutation to delete this recordData from the currentModelData
+        // send delete mutation to delete this subDoc from the currentDocData
         deleteDoc()
-        props.refreshParent(currentModelData._id)
+        props.refreshParent(currentDocData._id)
     }
     
     return (
         <div className="record">
-            <h3 >{recordData.name}</h3> 
-            <Link to={`/${recordData.modelName}/update/${recordData._id}`} target="_blank">
+            <h3 >{subDoc.name}</h3> 
+            <Link to={`/${subDoc.modelName}/update/${subDoc._id}`} target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt={"Pencil For Edit"}></img>
             </Link>
             <span onClick={deleteRecordEvent}>-</span>
