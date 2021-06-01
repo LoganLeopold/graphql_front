@@ -4,7 +4,6 @@ import { Link, Route} from "react-router-dom";
 import ActorList from "./lists/ActorList"
 import DirectorList from "./lists/DirectorList"
 import PlatformList from "./lists/PlatformList"
-import ApolloTest from "../src/apollo_client_test/ApolloTest"
 import ActorUpdate from "./updates/ActorUpdate"
 import MovieList from "./lists/MovieList"
 import MovieUpdate from "./updates/MovieUpdate"
@@ -36,14 +35,11 @@ class App extends Component {
           <br></br> 
           <h2> <Link to={'/platforms/'}>Platforms</Link></h2> 
           <br></br> 
-          {/* <h2> <Link to={'/apollo/'}>Apollo</Link></h2>  */}
-          {/* <br></br> */}
         </nav>   
           
         <main>
             <Route path="/directors" exact render={routerProps => <DirectorList {...routerProps} {...this.state}/>} /> 
             <Route path="/platforms" exact render={routerProps => <PlatformList {...routerProps} {...this.state}/>} /> 
-            <Route path="/apollo" exact render={routerProps => <ApolloTest {...routerProps} {...this.state}/>} /> 
             
             <Route path="/actors" exact render={routerProps => <ActorList {...routerProps} {...this.state}/>} /> 
             <Route path="/actors/update/:id" exact render={routerProps => <ActorUpdate {...routerProps} {...this.state} />} />

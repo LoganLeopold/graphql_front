@@ -18,8 +18,7 @@ class MovieUpdate extends Component {
 
         this.componentDidMount = this.componentDidMount.bind(this)
         this.getLatestDoc = this.getLatestDoc.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        // this.handleChange = this.handleChange.bind(this)
 
     }
 
@@ -93,45 +92,6 @@ class MovieUpdate extends Component {
 
     }
 
-    handleChange(e) {
-
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-
-    }
-
-    async handleSubmit(e) {
-
-        e.preventDefault()
-
-        let res = await axios({
-            method: "PUT",
-            url: `http://localhost:8000/movies/update/${this.props.match.params.id}`,
-            headers: {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin' : 'https://localhost:8000',
-            },
-            data: {
-                name: this.state.name,
-                director: this.state.director,
-                actors: this.state.actor,
-                platforms: this.state.platform,
-                tom_pub: this.state.tom_pub,
-                tom_crit: this.state.tom_crit,
-                genres: this.state.genre,
-            }
-        })
-
-        if (res.status === 200) {
-            console.log(res)
-            this.getLatestDoc()
-        } else {
-            console.log(`Post failed with error ${res.status}.`)
-        }
-
-    }
-
     render() {
 
         let directors, actors, platforms, genres; 
@@ -178,7 +138,6 @@ class MovieUpdate extends Component {
 
         return (
             <div className="movie-update">
-                <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Title</label>
                         <SimpleRecord propObj={titleProps} refreshParent={this.getLatestDoc}/>
@@ -198,7 +157,6 @@ class MovieUpdate extends Component {
                         <label>Genres</label>
                         {genres}
                     </div>
-                </form>
             </div>
         );  
     }

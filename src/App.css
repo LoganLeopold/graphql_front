@@ -86,24 +86,23 @@ nav > * {
 .movie-update {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 auto;
 }
 
-.movie-update form {
-  width: 40%
-}
-
-.movie-update form > * {
+.movie-update > * {
   margin: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.movie-update form label {
+.movie-update label {
   display: block;
 }
 
-.movie-update form .record {
+.movie-update .record {
   width: fit-content;
   display: flex;
   justify-content: center;
