@@ -9,8 +9,8 @@ const NewRecords = (props) => {
     const { propObj: { modelName, currentDocData }} = props 
 
     let newRec = gql`
-        mutation ${currentDocData.modelName}AddRelatedRecHandle ($newRecName: String!, $newRecModel: String!, $movieId: MongoID!) {
-            ${currentDocData.modelName}AddRelatedRecHandle (newRecName: $newRecName, newRecModel: $newRecModel, movieId: $movieId) {
+        mutation ${currentDocData.modelName}AddRecHandle ($newRecName: String!, $newRecModel: String!, $movieId: MongoID!) {
+            ${currentDocData.modelName}AddRecHandle (newRecName: $newRecName, newRecModel: $newRecModel, movieId: $movieId) {
                 _id,
                 name
             }

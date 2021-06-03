@@ -30,7 +30,8 @@ const SimpleRecord = (props) => {
        openEditing(!editing)
     }
 
-    let recUpdate = gql`
+    let recUpdate, currentUpdate;
+    recUpdate = currentUpdate = gql`
         mutation simple${currentDocModel}UpdateHandle ($movieId: MongoID!, $field: String!, $deleteValue: String!, $newValue: String) {
             simple${currentDocModel}UpdateHandle (movieId: $movieId, field: $field, deleteValue: $deleteValue, newValue: $newValue) {
                 _id
@@ -39,32 +40,6 @@ const SimpleRecord = (props) => {
             }   
         } 
     `
-
-    const [updateRecord, { updateLoading, updateError }] = useMutation( recUpdate, {
-        onCompleted(data) {
-            if (data) {
-                openEditing(false)
-                props.refreshParent(currentDocData._id)
-            } else if (updateLoading) {
-                console.log("loading")
-            } else if (updateError) {
-                console.log(updateError)
-            }   
-        }
-    })
-
-    const updateRecordEvent = (event) => {
-        event.preventDefault()
-        if (inputValue !== Object.values(subDoc)[0]) {
-            updateRecord({ variables: {
-                movieId: currentDocData._id,
-                field: field,
-                deleteValue: Object.values(subDoc)[0],
-                newValue: inputValue,
-                }
-            })
-        }
-    }
 
     /* Right now, the only model with fields that this would apply to is movies, on the field "genres" */
     let recDelete = gql`
@@ -77,27 +52,47 @@ const SimpleRecord = (props) => {
         } 
     `
 
-    const [deleteRecord, { deleteLoading, deleteError }] = useMutation( recDelete, {
+    const [updateRecord, { updateLoading, updateError }] = useMutation( currentUpdate, {
         onCompleted(data) {
             if (data) {
                 openEditing(false)
                 props.refreshParent(currentDocData._id)
-            } else if (deleteLoading) {
+            } else if (updateLoading) {
                 console.log("loading")
-            } else if (deleteError) {
-                console.log(deleteError)
+            } else if (updateError) {
+                console.log(updateError)
             }   
         }
     })
 
-    const deleteRecordEvent = (event) => {
-        event.preventDefault()
-        deleteRecord({ variables: {
+    let updateVars = { 
+        variables: {
             movieId: currentDocData._id,
             field: field,
             deleteValue: Object.values(subDoc)[0],
-            }
-        })
+            newValue: inputValue,
+        }
+    }
+    let deleteVars = { 
+        variables: {
+            movieId: currentDocData._id,
+            field: field,
+            deleteValue: Object.values(subDoc)[0],
+        }
+    }
+    
+    const updateRecordEvent = (event) => {
+        event.preventDefault()
+        currentUpdate = recUpdate
+        if (inputValue !== Object.values(subDoc)[0]) {
+            updateRecord(updateVars)
+        }
+    }
+
+    const deleteRecordEvent = (event) => {
+        currentUpdate = recDelete
+        event.preventDefault()
+        updateRecord(deleteVars)
     }
 
     return (
