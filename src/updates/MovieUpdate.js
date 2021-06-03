@@ -171,8 +171,11 @@ class MovieUpdate extends Component {
                         <label>Rotten Tomatoes Critic Score</label>
                         <SimpleRecord key={this.state.tom_crit} propObj={tomCritProps} refreshParent={this.getLatestDoc} />
                     </div>
-                    <div>
-                        <label>Genres</label>
+                    <div className="relatedGroup">
+                        <div>
+                            <label>Genres</label>
+                            <NewRecords propObj={new NewRecPropObj('genres', this.state)} refreshParent={this.getLatestDoc}/>  
+                        </div>
                         {genres}
                     </div>
             </div>

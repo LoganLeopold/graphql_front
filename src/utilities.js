@@ -1,12 +1,5 @@
 import RelatedRecord from "./records/RelatedRecord"
 
-let NewPropObj = class NewPropObject {
-    constructor(subDoc, currentDocData) {
-        this.subDoc = subDoc; // 
-        this.currentDocData = currentDocData;
-    }
-}
-
 let NewRecPropObj = class NewRecordPropObject {
     constructor(modelName, currentDocData) {
         this.modelName = modelName; // model/field name of subdoc
@@ -71,7 +64,6 @@ let returnRelatedRecords = (recordsArray, stateObject, propsArray) => {
 }
 
 export { 
-    NewPropObj,
     RelatedPropObj, 
     SimplePropObj, 
     NewRecPropObj,
