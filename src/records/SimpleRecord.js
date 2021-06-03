@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useMutation, gql } from '@apollo/client';
 import { capitalize } from '../utilities';
 
@@ -11,8 +11,16 @@ const SimpleRecord = (props) => {
     const [editing, openEditing] = useState(false)
     const [inputValue, changeValue] = useState(initialValue)
     
+    /*
+    
+    ---------------------------------------------------------------------------
+    The below mutation does not address non-related array items - edit for 
+    items like "genre"
+    ---------------------------------------------------------------------------
+
+    */
     let recUpdate = gql`
-    mutation simple${currentDocModel}UpdateHandle ($movieId:MongoID!, $field: String!, $value: String!) {
+    mutation simple${currentDocModel}UpdateHandle ($movieId: MongoID!, $field: String!, $value: String!) {
         simple${currentDocModel}UpdateHandle (movieId: $movieId, field: $field, value: $value) {
             _id
             name
@@ -24,7 +32,6 @@ const SimpleRecord = (props) => {
     const handleChange = (e) => {
         changeValue(e.target.value)
     }
-    // useEffect( () => {}, [inputValue])
     
     const [updateRecord, { updateLoading, updateError }] = useMutation( recUpdate, {
         onCompleted(data) {
@@ -56,9 +63,10 @@ const SimpleRecord = (props) => {
     return (
         <form className="record" onSubmit={updateRecordEvent}>
             <h3 >{initialValue}</h3>
+            { !editing && currentDocData && <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt="Pencil for edit" onClick={revealInput}></img>}
             { editing && currentDocData && (<input onChange={handleChange} defaultValue={initialValue} /> )}
             { editing && currentDocData && (<input type="submit" value="+" />)}
-            { currentDocData && <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt="Pencil for edit" onClick={revealInput}></img>}
+            { editing && currentDocData && <span onClick={revealInput}>Cancel</span>}
         </form>
     )
 

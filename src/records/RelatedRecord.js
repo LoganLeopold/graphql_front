@@ -6,36 +6,40 @@ const RelatedRecord = (props) => {
 
     const { propObj: { subDoc, currentDocData } } = props
 
-    const docRemove = gql`
-        mutation {              
-            simple${subDoc.modelName}DeleteHandle (${subDoc.modelName}Id: "${subDoc._id}", docId: "${currentDocData._id}", docModel: ${currentDocData.modelName}) { 
+    let deleteRec = gql`
+        mutation ${currentDocData.modelName}DeleteRelatedRecHandle ($recId: MongoID!, $recModel: String!, $movieId: MongoID!) {
+            ${currentDocData.modelName}DeleteRelatedRecHandle (recId: $recId, recModel: $recModel, movieId: $movieId) {
+                _id,
                 name
-                _id
-            } 
+            }
         }
     `
 
-    const [deleteDoc, { loading, error }] = useMutation(docRemove, {
+    const [deleteRecord, { deleteLoading, deleteError }] = useMutation( deleteRec, {
         onCompleted(data) {
-            if (data) {    
-                console.log(data)
-            } else if (loading) {
+            if (data) {
+                props.refreshParent(currentDocData._id)
+            } else if (deleteLoading) {
                 console.log("loading")
-            } else if (error) {
-                console.log(error)
-            }   
+            } else if (deleteError) {
+                console.log(deleteError)
+            }
+            
         }
-    });
+    })
     
     const deleteRecordEvent = async (e) => {
-        // send delete mutation to delete this subDoc from the currentDocData
-        deleteDoc()
-        props.refreshParent(currentDocData._id)
+        deleteRecord({ variables: {
+            recId: subDoc._id,
+            recModel: subDoc.modelName,
+            movieId: currentDocData._id,
+            }
+        })
     }
     
     return (
         <div className="record">
-            <h3 >{subDoc.name}</h3> 
+            <h3 >{subDoc.name}</h3>
             <Link to={`/${subDoc.modelName}/update/${subDoc._id}`} target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Ei-pencil.svg" alt={"Pencil For Edit"}></img>
             </Link>

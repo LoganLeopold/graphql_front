@@ -7,6 +7,13 @@ let NewPropObj = class NewPropObject {
     }
 }
 
+let NewRecPropObj = class NewRecordPropObject {
+    constructor(modelName, currentDocData) {
+        this.modelName = modelName; // model/field name of subdoc
+        this.currentDocData = currentDocData; // Entire state object of current document
+    }
+}
+
 // Prop object for subdocument of a current document - returned by this.returnRelatedRecords
 let RelatedPropObj = class RelatedPropObject {
     constructor(subDoc, currentDocData) {
@@ -67,6 +74,7 @@ export {
     NewPropObj,
     RelatedPropObj, 
     SimplePropObj, 
+    NewRecPropObj,
     capitalize, 
     depluralize, 
     pluralize, 

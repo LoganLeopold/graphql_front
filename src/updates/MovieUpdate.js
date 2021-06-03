@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import SimpleRecord from "../records/SimpleRecord"
-import { SimplePropObj, returnRelatedRecords } from "../utilities"
+import NewRecords from "../records/NewRecords"
+import { SimplePropObj, returnRelatedRecords, NewRecPropObj } from "../utilities"
 
 class MovieUpdate extends Component {
     constructor (props) {
@@ -18,7 +19,6 @@ class MovieUpdate extends Component {
 
         this.componentDidMount = this.componentDidMount.bind(this)
         this.getLatestDoc = this.getLatestDoc.bind(this)
-        // this.handleChange = this.handleChange.bind(this)
 
     }
 
@@ -102,7 +102,7 @@ class MovieUpdate extends Component {
 
         // Director
         if (this.state.directors) {
-            returnRelatedRecords(this.state.directors, this.state, [["refreshParent", this.getLatestDoc]])
+            directors = returnRelatedRecords(this.state.directors, this.state, [["refreshParent", this.getLatestDoc]])
         } else {
             directors = defaultRec
         }
@@ -142,9 +142,27 @@ class MovieUpdate extends Component {
                         <label>Title</label>
                         <SimpleRecord propObj={titleProps} refreshParent={this.getLatestDoc}/>
                     </div>
-                    <div> <label> Director </label> {directors} </div>
-                    <div> <label> Actors </label> {actors} </div>
-                    <div> <label> Platforms </label> {platforms} </div>
+                    <div className="relatedGroup"> 
+                        <div>
+                            <label> Director </label> 
+                            <NewRecords propObj={new NewRecPropObj('directors', this.state)} refreshParent={this.getLatestDoc}/> 
+                        </div>
+                        {directors} 
+                    </div>
+                    <div className="relatedGroup"> 
+                        <div>
+                            <label> Actors </label> 
+                            <NewRecords propObj={new NewRecPropObj('actors', this.state)} refreshParent={this.getLatestDoc}/> 
+                        </div>
+                        {actors} 
+                    </div>
+                    <div className="relatedGroup"> 
+                        <div>
+                            <label> Platforms </label> 
+                            <NewRecords propObj={new NewRecPropObj('platforms', this.state)} refreshParent={this.getLatestDoc}/>  
+                        </div>
+                        {platforms} 
+                    </div>
                     <div>
                         <label>Rotten Tomatoes Audience Score</label>
                         <SimpleRecord key={this.state.tom_pub} propObj={tomPubProps} refreshParent={this.getLatestDoc} />

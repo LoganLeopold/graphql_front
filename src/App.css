@@ -102,7 +102,23 @@ nav > * {
   display: block;
 }
 
-.movie-update .record {
+.relatedGroup {
+  display: flex;
+}
+
+.relatedGroup span {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* New Record */
+.new-record {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Simple + Related Records */
+.record {
   width: fit-content;
   display: flex;
   justify-content: center;
