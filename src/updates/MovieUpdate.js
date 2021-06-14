@@ -72,10 +72,6 @@ class MovieUpdate extends Component {
                 tom_crit: tomatocritic,
                 genres: genres,
                 modelName: modelName,
-            }, () => {
-
-                console.log("latestDoc SetState fired")
-
             })
 
         } catch (err) {

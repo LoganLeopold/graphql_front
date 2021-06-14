@@ -1,26 +1,17 @@
 import React, { useState } from 'react'
 import { useMutation, gql } from '@apollo/client';
-import { capitalize } from '../utilities';
+import { capitalize, depluralize } from '../utilities';
 
 const SimpleRecord = (props) => {
 
     const { propObj: { subDoc, currentDocData } } = props
     let field = currentDocData ? Object.keys(subDoc)[0] : "No Records"
     let initialValue = currentDocData ? Object.values(subDoc)[0] : "No Records"
+    let currentDocId = currentDocData ? currentDocData._id : "No Records"
     let currentDocModel = currentDocData.modelName ? capitalize(currentDocData.modelName, 0, 1) : "placehold"
+    let currentDocIdName = currentDocData.modelName ? depluralize(currentDocData.modelName) : "placehold"
     const [editing, openEditing] = useState(false)
     const [inputValue, changeValue] = useState(initialValue)
-
-    // let recordTypeDataType = Array.isArray(currentDocData[`${field}`])
-
-    /*
-    
-    ---------------------------------------------------------------------------
-    The below mutation does not address non-related array items - edit for 
-    items like "genre"
-    ---------------------------------------------------------------------------
-
-    */
    
     const handleChange = (e) => {
        changeValue(e.target.value)
@@ -32,8 +23,8 @@ const SimpleRecord = (props) => {
 
     let recUpdate, currentUpdate;
     recUpdate = currentUpdate = gql`
-        mutation simple${currentDocModel}UpdateHandle ($movieId: MongoID!, $field: String!, $deleteValue: String!, $newValue: String) {
-            simple${currentDocModel}UpdateHandle (movieId: $movieId, field: $field, deleteValue: $deleteValue, newValue: $newValue) {
+        mutation simple${currentDocModel}UpdateHandle ($${currentDocIdName}Id: MongoID!, $field: String!, $deleteValue: String!, $newValue: String) {
+            simple${currentDocModel}UpdateHandle (${currentDocIdName}Id: $${currentDocIdName}Id, field: $field, deleteValue: $deleteValue, newValue: $newValue) {
                 _id
                 name
                 genres
@@ -43,8 +34,8 @@ const SimpleRecord = (props) => {
 
     /* Right now, the only model with fields that this would apply to is movies, on the field "genres" */
     let recDelete = gql`
-        mutation simple${currentDocModel}UpdateHandle ($movieId: MongoID!, $field: String!, $deleteValue: String!) {
-            simple${currentDocModel}UpdateHandle (movieId: $movieId, field: $field, deleteValue: $deleteValue) {
+        mutation simple${currentDocModel}UpdateHandle ($${currentDocIdName}Id: MongoID!, $field: String!, $deleteValue: String!) {
+            simple${currentDocModel}UpdateHandle (${currentDocIdName}Id: $${currentDocIdName}Id, field: $field, deleteValue: $deleteValue) {
                 _id
                 name
                 genres
@@ -67,7 +58,7 @@ const SimpleRecord = (props) => {
 
     let updateVars = { 
         variables: {
-            movieId: currentDocData._id,
+            [`${currentDocIdName}Id`]: currentDocId,
             field: field,
             deleteValue: Object.values(subDoc)[0],
             newValue: inputValue,
@@ -75,12 +66,12 @@ const SimpleRecord = (props) => {
     }
     let deleteVars = { 
         variables: {
-            movieId: currentDocData._id,
+            [`${currentDocIdName}Id`]: currentDocId,
             field: field,
             deleteValue: Object.values(subDoc)[0],
         }
     }
-    
+        
     const updateRecordEvent = (event) => {
         event.preventDefault()
         currentUpdate = recUpdate
